@@ -42,6 +42,8 @@ const ClassManager = ({ user }) => {
   const [selectedYear, setSelectedYear] = useState('');
   const [showPromoteConfirm, setShowPromoteConfirm] = useState(false);
   const [promoteLoading, setPromoteLoading] = useState(false);
+  const [showCreateNextYearModal, setShowCreateNextYearModal] = useState(false);
+  const [createNextYearLoading, setCreateNextYearLoading] = useState(false);
 
   const { user: authUser } = useAuth();
   const navigate = useNavigate();
@@ -132,6 +134,44 @@ const ClassManager = ({ user }) => {
       toast.error('Failed to load teachers');
     }
     setLoading(false);
+  };
+
+  // Create next year classes (without students)
+  const handleCreateNextYearClasses = async () => {
+    setCreateNextYearLoading(true);
+    try {
+      const currentYear = selectedYear || (classes[0]?.academicYear);
+      let nextYear = '';
+      if (currentYear) {
+        const [startYear] = currentYear.split('-');
+        const nextStartYear = parseInt(startYear) + 1;
+        const nextEndYear = nextStartYear + 1;
+        nextYear = `${nextStartYear}-${nextEndYear.toString().slice(-2)}`;
+      }
+      
+      console.log('Creating next year classes:', {
+        currentYear,
+        nextYear,
+        schoolId,
+        classesCount: classes.length
+      });
+      
+      // Create next year classes without promoting students
+      const response = await api.post('/api/class/create-next-year', { 
+        currentAcademicYear: currentYear, 
+        nextAcademicYear: nextYear, 
+        schoolId 
+      });
+      console.log('Create Next Year Response:', response.data);
+      
+      toast.success('Next year classes created successfully!');
+      setShowCreateNextYearModal(false);
+      fetchClassesAndSections();
+    } catch (err) {
+      console.error('Create Next Year Error:', err);
+      toast.error('Failed to create next year classes.');
+    }
+    setCreateNextYearLoading(false);
   };
 
   // Promotion handler
@@ -339,6 +379,14 @@ const ClassManager = ({ user }) => {
           >
             <ArrowUpRight className="w-6 h-6" />
             <span className="hidden md:inline">Promote Classes</span>
+          </button>
+          <button
+            className="bg-gradient-to-r from-purple-600 to-purple-400 text-white rounded-full p-4 shadow-xl hover:from-purple-700 hover:to-purple-500 transition flex items-center gap-2 text-lg font-semibold"
+            onClick={() => setShowCreateNextYearModal(true)}
+            title="Create next academic year classes without students"
+          >
+            <Plus className="w-6 h-6" />
+            <span className="hidden md:inline">Create Next Year</span>
           </button>
           <button
             className="bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-full p-4 shadow-xl hover:from-blue-800 hover:to-blue-600 transition flex items-center gap-2 text-lg font-semibold"
@@ -651,6 +699,41 @@ const ClassManager = ({ user }) => {
                 disabled={promoteLoading}
               >
                 {promoteLoading ? <Loader2 className="w-5 h-5 animate-spin inline-block mr-2" /> : null}Promote
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Create Next Year Classes Modal */}
+      {showCreateNextYearModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md relative">
+            <button className="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl font-bold" onClick={() => setShowCreateNextYearModal(false)}>&times;</button>
+            <h3 className="text-xl font-semibold text-purple-700 mb-4">Create Next Year Classes</h3>
+            <p className="mb-6">This will create classes for the next academic year <span className="font-bold">{(() => {
+              const currentYear = selectedYear || (classes[0]?.academicYear);
+              if (currentYear) {
+                const [startYear] = currentYear.split('-');
+                const nextStartYear = parseInt(startYear) + 1;
+                const nextEndYear = nextStartYear + 1;
+                return `${nextStartYear}-${nextEndYear.toString().slice(-2)}`;
+              }
+              return 'N/A';
+            })()}</span> based on your current classes. Students will not be moved.</p>
+            <div className="flex gap-4 justify-end">
+              <button
+                className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300"
+                onClick={() => setShowCreateNextYearModal(false)}
+                disabled={createNextYearLoading}
+              >
+                Cancel
+              </button>
+              <button
+                className="px-4 py-2 rounded-lg bg-purple-600 text-white font-semibold hover:bg-purple-700"
+                onClick={handleCreateNextYearClasses}
+                disabled={createNextYearLoading}
+              >
+                {createNextYearLoading ? <Loader2 className="w-5 h-5 animate-spin inline-block mr-2" /> : null}Create Classes
               </button>
             </div>
           </div>
