@@ -140,12 +140,29 @@ const ClassManager = ({ user }) => {
     try {
       // Call backend endpoint to promote classes (to be implemented)
       const currentYear = selectedYear || (classes[0]?.academicYear);
-      const nextYear = currentYear ? `${parseInt(currentYear.split('-')[0]) + 1}-${(parseInt(currentYear.split('-')[0]) + 2).toString().slice(-2)}` : '';
-      await api.post('/api/class/promote', { currentAcademicYear: currentYear, nextAcademicYear: nextYear, schoolId });
+      let nextYear = '';
+      if (currentYear) {
+        const [startYear] = currentYear.split('-');
+        const nextStartYear = parseInt(startYear) + 1;
+        const nextEndYear = nextStartYear + 1;
+        nextYear = `${nextStartYear}-${nextEndYear.toString().slice(-2)}`;
+      }
+      
+      console.log('Promotion Details:', {
+        currentYear,
+        nextYear,
+        schoolId,
+        classesCount: classes.length
+      });
+      
+      const response = await api.post('/api/class/promote', { currentAcademicYear: currentYear, nextAcademicYear: nextYear, schoolId });
+      console.log('Promotion Response:', response.data);
+      
       toast.success('Classes and students promoted!');
       setShowPromoteConfirm(false);
       fetchClassesAndSections();
     } catch (err) {
+      console.error('Promotion Error:', err);
       toast.error('Promotion failed.');
     }
     setPromoteLoading(false);
