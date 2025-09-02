@@ -66,9 +66,9 @@ const StudentPerformance = () => {
           
           <div className="flex items-center gap-3 mb-2">
             <BarChart2 className="w-6 h-6 text-purple-400" />
-            <h1 className="text-3xl font-bold text-white">Student Stock Performance</h1>
+            <h1 className="text-3xl font-bold text-purple-900">Student Stock Performance</h1>
           </div>
-          <p className="text-gray-300 text-lg">Track student performance with stock-style analytics.</p>
+          <p className="text-gray-800 text-lg">Track student performance with stock-style analytics.</p>
         </div>
 
         {/* Filters and Export */}
@@ -112,7 +112,7 @@ const StudentPerformance = () => {
 
         {loading ? (
           <div className="text-center py-8">
-            <div className="text-gray-300">Loading...</div>
+            <div className="text-gray-700">Loading...</div>
           </div>
         ) : stats ? (
           <>
@@ -177,7 +177,7 @@ const StudentPerformance = () => {
                       />
                     </LineChart>
                   </ResponsiveContainer>
-                ) : <div className="h-full flex items-center justify-center text-gray-400">No data</div>}
+                ) : <div className="h-full flex items-center justify-center text-gray-600">No data</div>}
               </div>
             </div>
 
@@ -257,7 +257,7 @@ const StudentPerformance = () => {
           </>
         ) : (
           <div className="text-center py-8">
-            <div className="text-gray-300">Select a student to view performance data</div>
+            <div className="text-gray-700">Select a student to view performance data</div>
           </div>
         )}
       </div>

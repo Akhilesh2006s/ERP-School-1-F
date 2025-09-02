@@ -435,7 +435,7 @@ const StudentDashboard = () => {
           )}
           <div className="mt-4">
             <h4 className="font-semibold mb-2">Recent Achievements</h4>
-            {studentAchievements.length === 0 ? <div className="text-gray-400 text-sm">No achievements yet.</div> : (
+            {studentAchievements.length === 0 ? <div className="text-gray-600 text-sm">No achievements yet.</div> : (
               <ul className="space-y-2">
                 {studentAchievements.slice(0, 3).map(ach => (
                   <li key={ach._id} className="bg-gray-50 rounded p-3 flex flex-col md:flex-row md:items-center justify-between">
@@ -452,7 +452,7 @@ const StudentDashboard = () => {
           </div>
           <div className="mt-4">
             <h4 className="font-semibold mb-2">Recent Awards</h4>
-            {studentAwards.length === 0 ? <div className="text-gray-400 text-sm">No awards yet.</div> : (
+            {studentAwards.length === 0 ? <div className="text-gray-600 text-sm">No awards yet.</div> : (
               <ul className="space-y-2">
                 {studentAwards.slice(0, 3).map(a => (
                   <li key={a._id} className="bg-gray-50 rounded p-3 flex flex-col md:flex-row md:items-center justify-between">

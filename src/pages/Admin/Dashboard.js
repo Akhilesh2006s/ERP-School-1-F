@@ -292,7 +292,7 @@ const AdminDashboard = () => {
                   <td className="table-cell">
                     <div>
                       <div className="font-medium text-white">{student.firstName} {student.lastName}</div>
-                      <div className="text-sm text-gray-300">{student.studentId}</div>
+                      <div className="text-sm text-gray-600">{student.studentId}</div>
                     </div>
                   </td>
                   <td className="table-cell">
@@ -301,7 +301,7 @@ const AdminDashboard = () => {
                   <td className="table-cell">
                     <div>
                       <div className="text-sm text-gray-200">{student.email}</div>
-                      <div className="text-sm text-gray-300">{student.phone}</div>
+                      <div className="text-sm text-gray-600">{student.phone}</div>
                     </div>
                   </td>
                   <td className="table-cell">
@@ -375,7 +375,7 @@ const AdminDashboard = () => {
                   <td className="table-cell">
                     <div>
                       <div className="font-medium text-white">{teacher.firstName} {teacher.lastName}</div>
-                      <div className="text-sm text-gray-300">{teacher.teacherId}</div>
+                      <div className="text-sm text-gray-600">{teacher.teacherId}</div>
                     </div>
                   </td>
                   <td className="table-cell">
@@ -384,7 +384,7 @@ const AdminDashboard = () => {
                   <td className="table-cell">
                     <div>
                       <div className="text-sm text-gray-200">{teacher.email}</div>
-                      <div className="text-sm text-gray-300">{teacher.phone}</div>
+                      <div className="text-sm text-gray-600">{teacher.phone}</div>
                     </div>
                   </td>
                   <td className="table-cell">

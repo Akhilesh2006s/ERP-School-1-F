@@ -381,9 +381,9 @@ const YouTubeVideos = () => {
       </h2>
       
       {loading ? (
-        <div className="text-center py-8 text-gray-300">Loading...</div>
+                    <div className="text-center py-8 text-gray-700">Loading...</div>
       ) : safeVideos.length === 0 ? (
-        <div className="text-center py-8 text-gray-300">No videos uploaded yet.</div>
+                  <div className="text-center py-8 text-gray-700">No videos uploaded yet.</div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {safeVideos.map(video => (
