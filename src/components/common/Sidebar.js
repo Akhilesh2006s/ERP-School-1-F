@@ -74,7 +74,7 @@ const navItemsByRole = {
     { name: 'Performance', path: '/student/performance', icon: <BarChart2 className="w-12 h-12" />, color: 'purple' },
     { name: 'Fee Management', path: '/student/fee', icon: <DollarSign className="w-12 h-12" />, color: 'gold' },
 
-    { name: 'Class To-Dos', path: '/student/class-todos', icon: <FileText className="w-12 h-12" />, color: 'gold' },
+
     { name: 'Course Materials', path: '/student/materials', icon: <BookOpen className="w-12 h-12" />, color: 'purple' },
             { name: 'Lecture Videos', path: '/student/youtube-videos', icon: <Youtube className="w-12 h-12" />, color: 'gold' },
     { name: 'Achievements & Awards', path: '/student/achievements', icon: <Trophy className="w-12 h-12" />, color: 'gold' },
@@ -92,7 +92,7 @@ const navItemsByRole = {
     { name: 'Exams', path: '/teacher/exams', icon: <FileText className="w-12 h-12" />, color: 'gold' },
     { name: 'Marks', path: '/teacher/marks', icon: <GraduationCap className="w-12 h-12" />, color: 'purple' },
     { name: 'Student Performance', path: '/teacher/student-performance', icon: <BarChart3 className="w-12 h-12" />, color: 'purple' },
-    { name: 'Class To-Dos', path: '/teacher/class-todos', icon: <FileText className="w-12 h-12" />, color: 'gold' },
+
 
     { name: 'Course Materials', path: '/teacher/materials', icon: <Folder className="w-12 h-12" />, color: 'purple' },
             { name: 'Lecture Videos', path: '/teacher/youtube-videos', icon: <Youtube className="w-12 h-12" />, color: 'gold' },
