@@ -65,7 +65,7 @@ const StudentYouTubeVideos = () => {
       <div className="absolute inset-0 bg-white/10"></div>
       
       <div className="max-w-6xl mx-auto p-8 relative z-10">
-      <h1 className="text-3xl font-bold mb-6 text-blue-900 flex items-center gap-2">
+      <h1 className="text-3xl font-bold mb-6 text-purple-900 flex items-center gap-2">
         <Youtube className="w-8 h-8 text-red-600" /> Educational Videos
       </h1>
 

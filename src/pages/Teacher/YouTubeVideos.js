@@ -133,8 +133,8 @@ const YouTubeVideos = () => {
       </div>
 
       <div className="max-w-6xl mx-auto p-8 relative z-10">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800 flex items-center gap-2">
-        <Youtube className="w-8 h-8 text-red-500" /> YouTube Videos
+                  <h1 className="text-3xl font-bold mb-6 text-purple-900 flex items-center gap-2">
+                    <Youtube className="w-8 h-8 text-red-500" /> Lecture Videos
       </h1>
 
       {/* Professional Video Player Modal */}
