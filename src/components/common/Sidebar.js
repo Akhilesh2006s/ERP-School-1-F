@@ -284,16 +284,16 @@ const Sidebar = ({ isOpen, onClose, collapsed, setCollapsed }) => {
         <div className="absolute bottom-1/3 right-1/3 w-10 h-10 bg-gradient-to-br from-green-300/40 to-emerald-400/40 rotate-12 animate-float"></div>
       </div>
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-white/30 relative z-10">
+      <div className="bg-black border-b border-yellow-400/30 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                <Building className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-lg flex items-center justify-center">
+                <Building className="w-6 h-6 text-black" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-800">OhYes!</h1>
-                <p className="text-sm text-gray-600">Welcome, {user?.firstName} {user?.lastName}</p>
+                <h1 className="text-xl font-bold text-yellow-300">OhYes!</h1>
+                <p className="text-sm text-white">Welcome, {user?.firstName} {user?.lastName}</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
