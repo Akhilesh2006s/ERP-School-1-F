@@ -33,7 +33,7 @@ const SectionDetails = () => {
     const fetchData = async () => {
       try {
         // Fetch section info (with students populated)
-        const sectionRes = await api.get(`/section/${sectionId}`);
+        const sectionRes = await api.get(`/api/section/${sectionId}`);
         const sectionData = sectionRes.data.data.section;
         setSection(sectionData);
         setStudents(sectionData?.students || []);
@@ -41,24 +41,24 @@ const SectionDetails = () => {
         // Fetch all subjects for the school (with teacher info)
         if (user?.school?._id || user?.schoolId) {
           const schoolId = user?.school?._id || user?.schoolId;
-          const subjectsRes = await api.get('/subject?schoolId=' + schoolId);
+          const subjectsRes = await api.get('/api/subject?schoolId=' + schoolId);
           setAllSubjects(subjectsRes.data.data.subjects || []);
         } else {
           setAllSubjects([]);
         }
 
         // Fetch assigned subjects for this section
-        const assignedSubjectsRes = await api.get(`/section/${sectionId}/subjects`);
+        const assignedSubjectsRes = await api.get(`/api/section/${sectionId}/subjects`);
         setAssignedSubjects(assignedSubjectsRes.data.data.subjects || []);
 
         // Fetch all teachers
-        const teachersRes = await api.get('/teacher/admin');
+        const teachersRes = await api.get('/api/teacher/admin');
         const data = teachersRes.data;
         setTeachers(Array.isArray(data) ? data : (data.teachers || data.data?.teachers || []));
 
         // Fetch all students in the school
         if (user?.school?._id) {
-          const studentsRes = await api.get(`/users?role=student&schoolId=${user.school._id}`);
+          const studentsRes = await api.get(`/api/users?role=student&schoolId=${user.school._id}`);
           const allStu = studentsRes.data.data?.users || studentsRes.data.users || [];
           setAllStudents(allStu);
         } else {
@@ -85,11 +85,11 @@ const SectionDetails = () => {
       return;
     }
     try {
-      await api.post(`/section/${sectionId}/subjects`, { subjectId: subjectToAssign, teacherId: teacherToAssign });
+      await api.post(`/api/section/${sectionId}/subjects`, { subjectId: subjectToAssign, teacherId: teacherToAssign });
       setSubjectToAssign('');
       setTeacherToAssign('');
       // Refresh assigned subjects
-      const res = await api.get(`/section/${sectionId}/subjects`);
+      const res = await api.get(`/api/section/${sectionId}/subjects`);
       console.log('Assigned subjects response:', res.data);
       setAssignedSubjects(res.data.data.subjects || []);
       toast.success('Subject assigned to section!');
@@ -106,12 +106,12 @@ const SectionDetails = () => {
     if (!studentsToAdd.length) return;
     setAddingStudent(true);
     try {
-      await api.post(`/section/${sectionId}/students`, {
+      await api.post(`/api/section/${sectionId}/students`, {
         students: studentsToAdd
       });
       setStudentsToAdd([]);
       // Refresh students list
-      const sectionRes = await api.get(`/section/${sectionId}`);
+      const sectionRes = await api.get(`/api/section/${sectionId}`);
       const sectionData = sectionRes.data.data.section;
       setStudents(sectionData?.students || []);
     } finally {
@@ -122,9 +122,9 @@ const SectionDetails = () => {
   // Remove a student from the section
   const handleRemoveStudent = async (studentId) => {
     try {
-      await api.delete(`/section/${sectionId}/students/${studentId}`);
+      await api.delete(`/api/section/${sectionId}/students/${studentId}`);
       // Refresh students list
-      const sectionRes = await api.get(`/section/${sectionId}`);
+      const sectionRes = await api.get(`/api/section/${sectionId}`);
       const sectionData = sectionRes.data.data.section;
       setStudents(sectionData?.students || []);
       toast.success('Student removed from section');
@@ -246,8 +246,8 @@ const SectionDetails = () => {
                   <button
                     className="ml-4 px-4 py-2 bg-red-500 text-white rounded-lg font-semibold shadow hover:bg-red-600 transition"
                     onClick={async () => {
-                      await api.put(`/section/${sectionId}/remove-subject`, { subjectId: subj.subject._id });
-                      const res = await api.get(`/section/${sectionId}/subjects`);
+                      await api.put(`/api/section/${sectionId}/remove-subject`, { subjectId: subj.subject._id });
+                                              const res = await api.get(`/api/section/${sectionId}/subjects`);
                       setAssignedSubjects(res.data.data.subjects || []);
                       toast.success('Subject removed from section');
                     }}

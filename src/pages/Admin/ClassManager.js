@@ -57,14 +57,14 @@ const ClassManager = ({ user }) => {
     if (!schoolId) return;
     setLoading(true);
     try {
-      const res = await api.get(`/class?schoolId=${schoolId}`);
+      const res = await api.get(`/api/class?schoolId=${schoolId}`);
       const classList = res.data.data.classes || [];
       setClasses(classList);
       // Fetch sections for each class
       const sectionsMap = {};
       await Promise.all(classList.map(async (cls) => {
         try {
-          const secRes = await api.get(`/section?classId=${cls._id}`);
+          const secRes = await api.get(`/api/section?classId=${cls._id}`);
           // Use only secRes.data.sections for mapping
           const sectionsArr = secRes.data.sections || [];
           sectionsMap[cls._id] = sectionsArr.map(sec => ({
@@ -88,7 +88,7 @@ const ClassManager = ({ user }) => {
     if (!schoolId || !classId) return;
     setLoading(true);
     try {
-      const res = await api.get(`/section/all?schoolId=${schoolId}&classId=${classId}`);
+      const res = await api.get(`/api/section/all?schoolId=${schoolId}&classId=${classId}`);
       setSections(res.data.data.classSections || []);
     } catch (err) {
       toast.error('Failed to load sections');
@@ -101,7 +101,7 @@ const ClassManager = ({ user }) => {
     if (!sectionId) return;
     setLoading(true);
     try {
-      const res = await api.get(`/subject?sectionId=${sectionId}`);
+      const res = await api.get(`/api/subject?sectionId=${sectionId}`);
       setSubjects(res.data.data.subjects || []);
     } catch (err) {
       toast.error('Failed to load subjects');
@@ -114,7 +114,7 @@ const ClassManager = ({ user }) => {
     if (!sectionId) return;
     setLoading(true);
     try {
-      const res = await api.get(`/student/admin?sectionId=${sectionId}`);
+      const res = await api.get(`/api/student/admin?sectionId=${sectionId}`);
       setStudents(res.data.data.students || []);
     } catch (err) {
       toast.error('Failed to load students');
@@ -126,7 +126,7 @@ const ClassManager = ({ user }) => {
   const fetchTeachers = async () => {
     setLoading(true);
     try {
-      const res = await api.get(`/teacher/admin?schoolId=${schoolId}`);
+      const res = await api.get(`/api/teacher/admin?schoolId=${schoolId}`);
       setTeachers(res.data || []);
     } catch (err) {
       toast.error('Failed to load teachers');
@@ -175,7 +175,7 @@ const ClassManager = ({ user }) => {
     }
     const payload = { ...classForm, schoolId, academicYear: classForm.academicYear };
     try {
-      await api.post('/class', payload);
+      await api.post('/api/class', payload);
       setClassForm(initialClassForm);
       setShowAddClassModal(false);
       fetchClassesAndSections(); // Refresh classes and sections
@@ -192,7 +192,7 @@ const ClassManager = ({ user }) => {
     setFormError(null);
     setLoading(true);
     try {
-      await api.post('/section', {
+      await api.post('/api/section', {
         classId: selectedClass._id,
         name: sectionForm.name,
         schoolId
@@ -214,7 +214,7 @@ const ClassManager = ({ user }) => {
     setFormError(null);
     setLoading(true);
     try {
-      await api.post('/subject', {
+      await api.post('/api/subject', {
         name: subjectForm.name,
         teacherId: subjectForm.teacherId || undefined,
         schoolId
@@ -235,7 +235,7 @@ const ClassManager = ({ user }) => {
     setFormError(null);
     setLoading(true);
     try {
-      await api.post('/student/admin', {
+      await api.post('/api/student/admin', {
         ...studentForm,
         schoolId
       });
@@ -254,7 +254,7 @@ const ClassManager = ({ user }) => {
     if (!classToDelete) return;
     setLoading(true);
     try {
-      await api.delete(`/class/${classToDelete._id}`);
+      await api.delete(`/api/class/${classToDelete._id}`);
       setShowDeleteConfirm(false);
       setClassToDelete(null);
       fetchClassesAndSections();

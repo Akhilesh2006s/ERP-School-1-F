@@ -41,7 +41,7 @@ const SuperAdminDashboard = () => {
   useEffect(() => {
     const fetchSchools = async () => {
       try {
-        const res = await api.get(`/schools`);
+        const res = await api.get(`/api/schools`);
         setSchools(res.data.data.schools || []);
       } catch (err) { 
         console.error('Error fetching schools:', err);
@@ -84,7 +84,7 @@ const SuperAdminDashboard = () => {
         description: schoolForm.description
       };
       
-      const res = await api.post(`/schools`, schoolData);
+      const res = await api.post(`/api/schools`, schoolData);
       
       if (res.data.success) {
         // Create admin for the school
@@ -98,10 +98,10 @@ const SuperAdminDashboard = () => {
           phone: schoolForm.contact.phone
         };
         
-        const adminRes = await api.post(`/users`, adminData);
+        const adminRes = await api.post(`/api/users`, adminData);
         
         // Refresh schools
-        const resSchools = await api.get(`/schools`);
+        const resSchools = await api.get(`/api/schools`);
         setSchools(resSchools.data.data.schools || []);
         
         setAdminCredentials({
@@ -136,7 +136,7 @@ const SuperAdminDashboard = () => {
     e.preventDefault();
     setLoading(true);
     try {
-              const res = await api.post(`/superadmin/schools/${selectedSchool._id}/admins`, adminForm);
+              const res = await api.post(`/api/superadmin/schools/${selectedSchool._id}/admins`, adminForm);
       setAdminCredentials(res.data.data.admin);
       setShowAdminModal(false);
       setAdminForm({ firstName: '', lastName: '', email: '', phone: '', address: '' });
@@ -359,9 +359,9 @@ const SuperAdminDashboard = () => {
                           onClick={async () => {
                             if (window.confirm(`Are you sure you want to delete ${school.name}? This will remove the school and all its users.`)) {
                               try {
-                                await api.delete(`/schools/${school._id}`);
+                                await api.delete(`/api/schools/${school._id}`);
                                 // Refresh schools
-                                const resSchools = await api.get(`/schools`);
+                                const resSchools = await api.get(`/api/schools`);
                                 setSchools(resSchools.data.data.schools || []);
                                 window.toast && window.toast.success('School deleted successfully!');
                               } catch (err) {

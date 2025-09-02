@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './pages/Login';
 import RoleSelection from './pages/RoleSelection';
 import SuperAdminDashboard from './pages/SuperAdmin/Dashboard';
+import SuperAdminProfile from './pages/SuperAdmin/Profile';
 import AdminDashboard from './pages/Admin/Dashboard';
 import TeacherDashboard from './pages/Teacher/Dashboard';
 import StudentDashboard from './pages/Student/Dashboard';
@@ -99,6 +100,27 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   }
 
   return children;
+};
+
+// Profile Redirect Component
+const ProfileRedirect = () => {
+  const { user } = useAuth();
+  
+  if (!user) return null;
+  
+  // Redirect to role-specific profile
+  switch (user.role) {
+    case 'superadmin':
+      return <Navigate to="/superadmin/profile" replace />;
+    case 'admin':
+      return <Navigate to="/admin/profile" replace />;
+    case 'teacher':
+      return <Navigate to="/teacher/profile" replace />;
+    case 'student':
+      return <Navigate to="/student/profile" replace />;
+    default:
+      return <Navigate to="/login" replace />;
+  }
 };
 
 // Dashboard Router Component
@@ -209,6 +231,16 @@ function App() {
               <Route path="/student/login" element={<StudentLogin />} />
               <Route path="/role-selection" element={<RoleSelection />} />
               <Route path="/unauthorized" element={<UnauthorizedPage />} />
+              
+              {/* General Profile Route - Redirects to role-specific profile */}
+              <Route 
+                path="/profile" 
+                element={
+                  <ProtectedRoute>
+                    <ProfileRedirect />
+                  </ProtectedRoute>
+                } 
+              />
 
               {/* Main Layout for all protected and module routes */}
               <Route
@@ -228,6 +260,14 @@ function App() {
                         element={
                           <ProtectedRoute allowedRoles={['superadmin']}>
                             <SuperAdminDashboard />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="superadmin/profile"
+                        element={
+                          <ProtectedRoute allowedRoles={['superadmin']}>
+                            <SuperAdminProfile />
                           </ProtectedRoute>
                         }
                       />

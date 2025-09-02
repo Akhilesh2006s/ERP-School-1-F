@@ -37,7 +37,7 @@ const ExamManager = () => {
   const fetchExams = async () => {
     setLoading(true);
     try {
-      const res = await api.get('/exam');
+      const res = await api.get('/api/exam');
       setExams(res.data.exams || []);
     } catch {
       setExams([]);
@@ -54,7 +54,7 @@ const ExamManager = () => {
     e.preventDefault();
     setMsg('');
     try {
-      await api.post('/exam', {
+      await api.post('/api/exam', {
         name: form.name,
         maxMarks: form.maxMarks,
         date: form.date,
@@ -78,7 +78,7 @@ const ExamManager = () => {
     }
     setLoading(true);
     try {
-      await api.post('/exam', {
+      await api.post('/api/exam', {
         name: form.name,
         maxMarks: form.maxMarks,
         date: form.date,
@@ -114,7 +114,7 @@ const ExamManager = () => {
     }
     setLoading(true);
     try {
-      await api.put(`/exam/${editId}`, {
+      await api.put(`/api/exam/${editId}`, {
         name: form.name,
         maxMarks: form.maxMarks,
         date: form.date,
@@ -133,7 +133,7 @@ const ExamManager = () => {
   const handleDeleteExam = async () => {
     setLoading(true);
     try {
-      await api.delete(`/exam/${deleteId}`);
+      await api.delete(`/api/exam/${deleteId}`);
       setMsg('Exam deleted!');
       setDeleteId(null);
       fetchExams();

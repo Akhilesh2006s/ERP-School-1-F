@@ -49,7 +49,7 @@ const FeeDashboard = () => {
     if (!user?.school?._id) return;
     setLoading(true);
     Promise.all([
-      api.get(`/student/admin?schoolId=${user.school._id}`),
+      api.get(`/api/student/admin?schoolId=${user.school._id}`),
       api.get('/api/fee')
     ]).then(([stuRes, feeRes]) => {
       setStudents(Array.isArray(stuRes.data) ? stuRes.data : (stuRes.data.students || []));
@@ -83,10 +83,10 @@ const FeeDashboard = () => {
     setError('');
     setSuccess('');
     try {
-      await api.post('/student/admin', studentForm);
+      await api.post('/api/student/admin', studentForm);
       setStudentForm({ firstName: '', lastName: '', email: '', phone: '', password: '', classId: '', schoolId: '' });
       // Refresh students
-      const stuRes = await api.get('/student/admin');
+      const stuRes = await api.get('/api/student/admin');
       setStudents(Array.isArray(stuRes.data) ? stuRes.data : (stuRes.data.students || []));
     } catch (err) {
       setError('Failed to add student');
@@ -122,9 +122,9 @@ const FeeDashboard = () => {
   const handleDeleteStudent = async (studentId) => {
     if (!window.confirm('Are you sure you want to delete this student? This will remove all their data.')) return;
     try {
-      await api.delete(`/student/admin/${studentId}`);
+      await api.delete(`/api/student/admin/${studentId}`);
       // Refresh students and fees
-      const stuRes = await api.get(`/student/admin?schoolId=${user.school._id}`);
+      const stuRes = await api.get(`/api/student/admin?schoolId=${user.school._id}`);
       setStudents(Array.isArray(stuRes.data) ? stuRes.data : (stuRes.data.students || []));
       const feeRes = await api.get('/api/fee');
       setFees(feeRes.data.fees || []);
@@ -238,11 +238,11 @@ const FeeDashboard = () => {
     try {
       const fee = fees.find(f => f.student && f.student._id === feeModalStudent._id && f.academicYear === feeModalYear);
       if (fee) {
-        await api.put(`/fee/${fee._id}`, payload);
+        await api.put(`/api/fee/${fee._id}`, payload);
       } else {
-        await api.post('/fee/assign', payload);
+        await api.post('/api/fee/assign', payload);
       }
-      const feeRes = await api.get('/fee');
+      const feeRes = await api.get('/api/fee');
       setFees(feeRes.data.fees || []);
       setShowFeeModal(false);
       setFeeModalStudent(null);
@@ -261,8 +261,8 @@ const FeeDashboard = () => {
   const handleSetPaidStatus = async (feeId, paid) => {
     try {
       setStatusLoading(true);
-      await api.patch(`/fee/${feeId}/set-paid`, { paid });
-      const feeRes = await api.get('/fee');
+      await api.patch(`/api/fee/${feeId}/set-paid`, { paid });
+      const feeRes = await api.get('/api/fee');
       setFees(feeRes.data.fees || []);
       setStatusLoading(false);
       setSuccess('Status updated!');
@@ -306,8 +306,8 @@ const FeeDashboard = () => {
     };
     console.log('Assign Fee Payload:', payload);
     try {
-      await api.post('/fee/assign', payload);
-      const feeRes = await api.get('/fee');
+      await api.post('/api/fee/assign', payload);
+      const feeRes = await api.get('/api/fee');
       setFees(feeRes.data.fees || []);
       setShowAssignModal(false);
       setAssignStudent(null);

@@ -24,9 +24,9 @@ const HostelDashboard = () => {
     setLoading(true);
     try {
       const [summaryRes, hostelsRes, recentRes] = await Promise.all([
-        api.get('/hostel/summary'),
-        api.get('/hostel/'),
-        api.get('/hostel/recent-checkins'),
+        api.get('/api/hostel/summary'),
+        api.get('/api/hostel/'),
+        api.get('/api/hostel/recent-checkins'),
       ]);
       setSummary(summaryRes.data || {});
       setHostels(hostelsRes.data || []);
@@ -54,7 +54,7 @@ const HostelDashboard = () => {
         capacity: form.capacity,
         ...(form.warden && form.warden.length === 24 ? { warden: form.warden } : {})
       };
-      await api.post('/hostel/add', payload);
+      await api.post('/api/hostel/add', payload);
       setShowAddModal(false);
       setForm(initialForm);
       fetchAll();
@@ -69,7 +69,7 @@ const HostelDashboard = () => {
   const handleDeleteHostel = async (id) => {
     if (!window.confirm('Are you sure you want to delete this hostel?')) return;
     try {
-      await api.delete(`/hostel/${id}`);
+      await api.delete(`/api/hostel/${id}`);
       fetchAll();
       toast.success('Hostel deleted');
     } catch (err) {

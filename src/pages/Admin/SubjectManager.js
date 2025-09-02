@@ -43,7 +43,7 @@ const SubjectManager = () => {
   // Fetch classes on mount (use api)
   useEffect(() => {
     if (!user?.school?._id) return;
-    api.get(`/class?schoolId=${user.school._id}`)
+    api.get(`/api/class?schoolId=${user.school._id}`)
       .then(classRes => {
         setClasses(Array.isArray(classRes.data) ? classRes.data : (classRes.data.classes || []));
         setLoading(false);
@@ -56,7 +56,7 @@ const SubjectManager = () => {
   // Fetch subjects for selected class (use api, robust extraction)
   useEffect(() => {
     setLoading(true);
-    api.get(`/subject?schoolId=${user.school._id}`)
+    api.get(`/api/subject?schoolId=${user.school._id}`)
       .then(res => {
         const subjects =
           res.data?.data?.subjects ||
@@ -73,7 +73,7 @@ const SubjectManager = () => {
 
   // After add/edit/delete, use the same robust extraction
   const refreshSubjects = () => {
-    api.get(`/subject?schoolId=${user.school._id}`)
+    api.get(`/api/subject?schoolId=${user.school._id}`)
       .then(res => {
         const subjects =
           res.data?.data?.subjects ||
@@ -98,7 +98,7 @@ const SubjectManager = () => {
         schoolId: user.school._id,
       };
       if (form.classId) payload.classId = form.classId;
-      await api.post('/subject', payload);
+      await api.post('/api/subject', payload);
       setShowAddModal(false);
       setForm(initialForm);
       refreshSubjects();
@@ -134,7 +134,7 @@ const SubjectManager = () => {
         schoolId: user.school._id,
       };
       if (form.classId) payload.classId = form.classId;
-      await api.put(`/subject/${editId}`, payload);
+      await api.put(`/api/subject/${editId}`, payload);
       setShowEditModal(false);
       setForm(initialForm);
       setEditId(null);
@@ -147,7 +147,7 @@ const SubjectManager = () => {
   // Delete subject (use api)
   const handleDelete = async () => {
     try {
-      await api.delete(`/subject/${deleteId}`);
+      await api.delete(`/api/subject/${deleteId}`);
       setShowDeleteModal(false);
       setDeleteId(null);
       refreshSubjects();

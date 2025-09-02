@@ -56,7 +56,7 @@ const TeacherManager = () => {
   // Fetch teachers
   const fetchTeachers = () => {
     setLoading(true);
-    api.get('/teacher/admin')
+    api.get('/api/teacher/admin')
       .then(res => {
         const data = res.data;
         setTeachers(Array.isArray(data) ? data : (data.teachers || data.data?.teachers || []));
@@ -87,7 +87,7 @@ const TeacherManager = () => {
     }
     const payload = { ...addForm, schoolId };
     try {
-      const res = await api.post('/teacher/admin', payload);
+      const res = await api.post('/api/teacher/admin', payload);
       setShowAddModal(false);
       setAddForm({ firstName: '', lastName: '', email: '', password: '', qualification: '', experience: '' });
       fetchTeachers();
@@ -120,7 +120,7 @@ const TeacherManager = () => {
     e.preventDefault();
     setEditError(null);
     try {
-      await api.put(`/teacher/admin/${editId}`, editForm);
+      await api.put(`/api/teacher/admin/${editId}`, editForm);
       setShowEditModal(false);
       setEditId(null);
       setEditForm({ firstName: '', lastName: '', email: '', qualification: '', experience: '' });
@@ -140,7 +140,7 @@ const TeacherManager = () => {
   // Delete confirm handler
   const handleDelete = async () => {
     try {
-      await api.delete(`/teacher/admin/${deleteId}`);
+      await api.delete(`/api/teacher/admin/${deleteId}`);
       setShowDeleteModal(false);
       setDeleteId(null);
       fetchTeachers();

@@ -57,9 +57,9 @@ const AdminDashboard = () => {
         }
 
         const [studentsRes, teachersRes, classesRes] = await Promise.all([
-          api.get(`/users?role=student&schoolId=${schoolId}`),
-          api.get(`/users?role=teacher&schoolId=${schoolId}`),
-          api.get(`/class?schoolId=${schoolId}`)
+          api.get(`/api/users?role=student&schoolId=${schoolId}`),
+          api.get(`/api/users?role=teacher&schoolId=${schoolId}`),
+          api.get(`/api/class?schoolId=${schoolId}`)
         ]);
         setStudents(studentsRes.data.data.users || []);
         setTeachers(teachersRes.data.data.users || []);
@@ -73,7 +73,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     if (!schoolId) return;
-    api.get(`/subject?schoolId=${schoolId}`)
+    api.get(`/api/subject?schoolId=${schoolId}`)
       .then(res => setAllSubjects(res.data.data.subjects || []))
       .catch(() => setAllSubjects([]));
   }, [schoolId]);
@@ -96,7 +96,7 @@ const AdminDashboard = () => {
         password: 'password123' // Default password
       };
       
-      const res = await api.post(`/users`, teacherData);
+      const res = await api.post(`/api/users`, teacherData);
       const createdTeacher = res.data.data.user;
       
       // Show credentials to admin
@@ -106,7 +106,7 @@ const AdminDashboard = () => {
       setShowCreateModal(false);
       setTeacherForm({ firstName: '', lastName: '', phone: '', address: '', qualification: '', experience: '', subjects: [] });
       // Refresh teachers
-      const teachersRes = await api.get(`/users?role=teacher&schoolId=${schoolId}`);
+              const teachersRes = await api.get(`/api/users?role=teacher&schoolId=${schoolId}`);
       setTeachers(teachersRes.data.data.users || []);
     } catch (err) { 
       console.error('Error creating teacher:', err);
@@ -133,7 +133,7 @@ const AdminDashboard = () => {
         password: 'password123' // Default password
       };
       
-      const res = await api.post(`/users`, studentData);
+      const res = await api.post(`/api/users`, studentData);
       const createdStudent = res.data.data.user;
       
       // Show credentials to admin
@@ -143,7 +143,7 @@ const AdminDashboard = () => {
       setShowCreateModal(false);
       setStudentForm({ firstName: '', lastName: '', classId: '', phone: '', address: '', dateOfBirth: '', gender: '', parentInfo: '' });
       // Refresh students
-      const studentsRes = await api.get(`/users?role=student&schoolId=${schoolId}`);
+              const studentsRes = await api.get(`/api/users?role=student&schoolId=${schoolId}`);
       setStudents(studentsRes.data.data.users || []);
     } catch (err) { 
       console.error('Error creating student:', err);
