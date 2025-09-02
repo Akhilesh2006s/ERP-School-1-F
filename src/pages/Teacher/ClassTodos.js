@@ -9,7 +9,7 @@ const ClassTodos = () => {
   const [sectionId, setSectionId] = useState('');
   const [date, setDate] = useState('');
   const [task, setTask] = useState('');
-  const [file, setFile] = useState(null);
+  const [link, setLink] = useState('');
   const [todos, setTodos] = useState([]);
   const [msg, setMsg] = useState('');
   const [classes, setClasses] = useState([]);
@@ -51,25 +51,24 @@ const ClassTodos = () => {
   };
   useEffect(() => { fetchTodos(); /* eslint-disable-next-line */ }, [classId, sectionId]);
 
-  // Handle form submit with file upload
+  // Handle form submit with link
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMsg('');
     try {
-      const formData = new FormData();
-      formData.append('classId', classId || undefined);
-      formData.append('sectionId', sectionId || undefined);
-      formData.append('date', date || undefined);
-      formData.append('task', task || undefined);
-      if (file) formData.append('file', file);
+      const todoData = {
+        classId: classId || undefined,
+        sectionId: sectionId || undefined,
+        date: date || undefined,
+        task: task || undefined,
+        link: link || undefined
+      };
 
-      await api.post('/api/class-todo', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      await api.post('/api/class-todo', todoData);
       setMsg('To-Do posted!');
       setTask('');
       setDate('');
-      setFile(null);
+      setLink('');
       fetchTodos();
     } catch (err) {
       setMsg(err.response?.data?.message || 'Failed to post to-do.');
@@ -123,7 +122,7 @@ const ClassTodos = () => {
         </div>
         <div className="flex gap-4">
           <input type="date" value={date} onChange={e => setDate(e.target.value)} required className="input-dark flex-1" />
-          <input type="file" accept='.pdf,.doc,.docx' onChange={e => setFile(e.target.files[0])} className="input-dark flex-1" />
+          <input type="url" value={link} onChange={e => setLink(e.target.value)} placeholder="Enter link (optional)" className="input-dark flex-1" />
         </div>
         <input type="text" value={task} onChange={e => setTask(e.target.value)} placeholder="Enter to-do/work" required className="input-dark" />
         <button type="submit" className="btn-dark-primary py-3 px-6 rounded-xl font-bold shadow-lg flex items-center gap-2 text-lg transition">Post To-Do</button>
@@ -136,7 +135,7 @@ const ClassTodos = () => {
             <tr>
               <th className="p-3 text-left text-gray-800 font-semibold">Work</th>
               <th className="p-3 text-left text-gray-800 font-semibold">Due Date</th>
-              <th className="p-3 text-left text-gray-800 font-semibold">Download</th>
+              <th className="p-3 text-left text-gray-800 font-semibold">Link</th>
             </tr>
           </thead>
           <tbody>
@@ -147,18 +146,17 @@ const ClassTodos = () => {
                 <td className="p-3 text-gray-700">{todo.task}</td>
                 <td className="p-3 text-gray-700">{new Date(todo.date).toLocaleDateString()}</td>
                 <td className="p-3">
-                  {todo.fileUrl ? (
+                  {todo.link ? (
                     <a
-                      href={todo.fileUrl}
-                      download={todo.fileName}
+                      href={todo.link}
                       className="text-purple-400 hover:text-purple-300 hover:underline font-semibold"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Download
+                      View Link
                     </a>
                   ) : (
-                    <span className="text-gray-400">No file</span>
+                    <span className="text-gray-400">No link</span>
                   )}
                 </td>
               </tr>

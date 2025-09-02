@@ -51,7 +51,7 @@ const ClassTodos = () => {
               <tr className="bg-blue-50">
                 <th className="py-3 px-4 text-left font-semibold text-blue-900">Work</th>
                 <th className="py-3 px-4 text-left font-semibold text-blue-900">Due Date</th>
-                <th className="py-3 px-4 text-center font-semibold text-blue-900">Download</th>
+                <th className="py-3 px-4 text-center font-semibold text-blue-900">Link</th>
               </tr>
             </thead>
             <tbody>
@@ -60,18 +60,17 @@ const ClassTodos = () => {
                   <td className="py-2 px-4 font-bold text-blue-900">{todo.task}</td>
                   <td className="py-2 px-4 text-gray-700">{new Date(todo.date).toLocaleDateString()}</td>
                   <td className="py-2 px-4 text-center">
-                    {todo.fileUrl ? (
+                    {todo.link ? (
                       <a
-                        href={todo.fileUrl}
-                        download={todo.fileName}
+                        href={todo.link}
                         className="inline-flex items-center gap-1 px-3 py-2 rounded-md font-bold bg-blue-600 text-white hover:bg-blue-700 transition"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Download className="w-4 h-4" /> Download
+                        <FileText className="w-4 h-4" /> View Link
                       </a>
                     ) : (
-                      <span className="text-gray-400">No file</span>
+                      <span className="text-gray-400">No link</span>
                     )}
                   </td>
                 </tr>
