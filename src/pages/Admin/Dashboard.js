@@ -156,15 +156,15 @@ const AdminDashboard = () => {
     <div className="space-y-8">
       {/* Welcome Message */}
       {selectedSchool && (
-        <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 mb-6 flex items-center shadow-lg border border-white/50">
-          <div className="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mr-6">
-            <School className="w-8 h-8 text-purple-600" />
+        <div className="bg-black rounded-xl p-6 mb-6 flex items-center shadow-lg border border-yellow-400/30">
+          <div className="w-14 h-14 bg-yellow-500 rounded-lg flex items-center justify-center mr-6">
+            <School className="w-8 h-8 text-black" />
               </div>
               <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-1">
+            <h2 className="text-2xl font-bold text-yellow-300 mb-1">
                   Welcome to {selectedSchool.name}
                 </h2>
-            <p className="text-gray-800 font-medium">
+            <p className="text-white font-medium">
                   School Code: {selectedSchool.code} • Location: {selectedSchool.address?.city}, {selectedSchool.address?.state}
                 </p>
           </div>
