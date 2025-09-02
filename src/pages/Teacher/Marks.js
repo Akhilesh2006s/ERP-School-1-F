@@ -178,7 +178,7 @@ const Marks = () => {
           <div className="mb-4">
             <label className="font-semibold mr-2 text-gray-800">Subject:</label>
             <select
-              className="select-dark"
+              className="px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-800"
               value={selectedSubject}
               onChange={e => setSelectedSubject(e.target.value)}
             >
@@ -197,10 +197,10 @@ const Marks = () => {
             <h2 className="text-lg font-semibold mb-4 text-gray-800">Enter Marks</h2>
             {/* Search/filter box */}
             <div className="mb-4 flex items-center gap-2">
-              <Search className="w-4 h-4 text-gray-400" />
+              <Search className="w-4 h-4 text-gray-700" />
               <input
                 type="text"
-                className="input-dark w-64"
+                className="w-64 px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-600 text-gray-800"
                 placeholder="Search by name or roll no..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
@@ -209,7 +209,7 @@ const Marks = () => {
             {/* Batch Actions */}
             <div className="mb-4 flex gap-2">
               <button
-                className="btn btn-sm bg-purple-900/50 text-purple-200 hover:bg-purple-800/50 border border-purple-500/30"
+                className="btn btn-sm bg-purple-600 text-white hover:bg-purple-700 border border-purple-500"
                 type="button"
                 onClick={() => {
                   const newMarks = { ...marks };
@@ -223,7 +223,7 @@ const Marks = () => {
                 Fill All (Max)
               </button>
               <button
-                className="btn btn-sm bg-gray-700/50 text-gray-200 hover:bg-gray-600/50 border border-gray-500/30"
+                className="btn btn-sm bg-gray-600 text-white hover:bg-gray-700 border border-gray-500"
                 type="button"
                 onClick={() => {
                   const newMarks = { ...marks };
@@ -237,14 +237,14 @@ const Marks = () => {
                 Clear All
               </button>
               <button
-                className="btn btn-sm bg-green-900/50 text-green-200 hover:bg-green-800/50 border border-green-500/30"
+                className="btn btn-sm bg-green-600 text-white hover:bg-green-700 border border-green-500"
                 type="button"
                 onClick={handleSaveMarks}
               >
                 Save All
               </button>
             </div>
-            {marksLoading ? <div className="text-gray-300">Loading students...</div> : filteredStudents.length === 0 ? <div className="text-gray-300">No students found.</div> : (
+            {marksLoading ? <div className="text-gray-700 font-medium">Loading students...</div> : filteredStudents.length === 0 ? <div className="text-gray-700 font-medium">No students found.</div> : (
               <div className="overflow-x-auto max-h-96">
                 <table className="min-w-full mb-4">
                   <thead className="sticky top-0 bg-gray-800 z-10">
@@ -273,7 +273,7 @@ const Marks = () => {
                                 ref={el => inputRefs.current[stu._id] = el}
                                 value={marks[stu._id] || ''}
                                 onChange={e => setMarks({ ...marks, [stu._id]: e.target.value })}
-                                className={`input-dark pr-8 ${isValidMark(marks[stu._id]) || marks[stu._id] === undefined || marks[stu._id] === '' ? '' : 'border-red-500 bg-red-900/50'}`}
+                                className={`pr-8 px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-800 ${isValidMark(marks[stu._id]) || marks[stu._id] === undefined || marks[stu._id] === '' ? '' : 'border-red-500 bg-red-50'}`}
                                 min="0"
                                 max={selectedExam.maxMarks}
                                 placeholder={`Max ${selectedExam.maxMarks}`}
