@@ -47,14 +47,14 @@ const HeaderBar = ({ user, school, onProfile, onLogout, notificationCount = 0, o
   }, [dropdownOpen]);
 
   return (
-    <header className="w-full bg-violet-600 backdrop-blur-sm border-b border-amber-300/30 shadow-lg flex items-center justify-between px-4 md:px-8 py-4 relative z-20">
+    <header className="w-full bg-black backdrop-blur-sm border-b border-yellow-400/30 shadow-lg flex items-center justify-between px-4 md:px-8 py-4 relative z-20">
       <div className="flex items-center gap-4">
         {/* Back to Dashboard Button */}
         <button
           onClick={handleBackToDashboard}
-          className="flex items-center gap-2 px-3 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg transition-all duration-200 hover:shadow-lg text-sm font-medium"
+          className="flex items-center gap-2 px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-black rounded-lg transition-all duration-200 hover:shadow-lg text-sm font-medium"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 text-black" />
           <span className="hidden sm:inline">Dashboard</span>
         </button>
         
@@ -66,16 +66,16 @@ const HeaderBar = ({ user, school, onProfile, onLogout, notificationCount = 0, o
         >
           <Menu className="w-7 h-7 text-white" />
         </button>
-        <div className="bg-gradient-to-br from-violet-500 to-amber-500 rounded-full w-12 h-12 flex items-center justify-center">
-          <School className="w-8 h-8 text-white" />
+        <div className="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full w-12 h-12 flex items-center justify-center">
+          <School className="w-8 h-8 text-black" />
         </div>
-        <div className="bg-gradient-to-r from-violet-400/40 to-amber-400/40 rounded-lg p-3 backdrop-blur-sm border border-violet-300/30">
+        <div className="bg-gradient-to-r from-yellow-400/40 to-yellow-500/40 rounded-lg p-3 backdrop-blur-sm border border-yellow-300/30">
           {title ? (
-            <div className="text-2xl font-bold text-white leading-tight">{title}</div>
+            <div className="text-2xl font-bold text-yellow-300 leading-tight">{title}</div>
           ) : (
             <>
-              <div className="text-2xl font-bold text-white leading-tight">{displayName}</div>
-              <div className="text-sm text-amber-100 font-medium">{schoolCode} • {welcomeMsg}</div>
+                              <div className="text-2xl font-bold text-yellow-300 leading-tight">{displayName}</div>
+              <div className="text-sm text-yellow-300 font-medium">{schoolCode} • {welcomeMsg}</div>
             </>
           )}
         </div>
@@ -84,22 +84,22 @@ const HeaderBar = ({ user, school, onProfile, onLogout, notificationCount = 0, o
         {/* Avatar + Dropdown */}
         <div className="relative" ref={avatarRef}>
           <button
-            className="w-12 h-12 rounded-full bg-gradient-to-br from-violet-500 to-amber-500 flex items-center justify-center text-xl font-bold text-white focus:outline-none focus:ring-2 focus:ring-violet-300 hover:shadow-lg transition-all duration-200"
+            className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center text-xl font-bold text-black focus:outline-none focus:ring-2 focus:ring-yellow-300 hover:shadow-lg transition-all duration-200"
             onClick={handleAvatarClick}
             aria-label="User menu"
           >
             {initials}
           </button>
           {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-40 bg-gray-800 border border-violet-500/30 rounded-lg shadow-xl py-2 z-50">
+            <div className="absolute right-0 mt-2 w-40 bg-black border border-yellow-400/30 rounded-lg shadow-xl py-2 z-50">
               <button
-                className="block w-full text-left px-4 py-2 text-violet-300 hover:bg-violet-500/20 font-semibold transition-colors duration-200"
+                className="block w-full text-left px-4 py-2 text-yellow-300 hover:bg-yellow-500/20 font-semibold transition-colors duration-200"
                 onClick={handleProfile}
               >
                 Profile
               </button>
               <button
-                className="block w-full text-left px-4 py-2 text-amber-300 hover:bg-gradient-to-r hover:from-violet-500/20 hover:to-amber-500/20 font-semibold transition-colors duration-200"
+                className="block w-full text-left px-4 py-2 text-yellow-300 hover:bg-gradient-to-r hover:from-yellow-500/20 hover:to-yellow-600/20 font-semibold transition-colors duration-200"
                 onClick={handleLogout}
               >
                 Logout
