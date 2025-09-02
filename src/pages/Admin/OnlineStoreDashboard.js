@@ -17,7 +17,7 @@ function OnlineStoreDashboard() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const res = await api.get('/store');
+      const res = await api.get('/api/store');
       setProducts(res.data);
     } catch {
       setError('Failed to load products');
@@ -62,7 +62,7 @@ function OnlineStoreDashboard() {
   const handleDeleteProduct = async (id) => {
     if (!window.confirm('Delete this product?')) return;
     try {
-      await api.delete(`/store/${id}`);
+      await api.delete(`/api/store/${id}`);
       fetchProducts();
     } catch {}
   };

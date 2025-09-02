@@ -24,8 +24,8 @@ const RoleManagement = () => {
     setLoading(true);
     try {
       const [teachersRes, rolesRes] = await Promise.all([
-        api.get('/admin/teachers'),
-        api.get('/admin/special-roles'),
+        api.get('/api/admin/teachers'),
+        api.get('/api/admin/special-roles'),
       ]);
       setTeachers(teachersRes.data.data.teachers || []);
       setSpecialRoles(rolesRes.data.data.users || []);
@@ -39,7 +39,7 @@ const RoleManagement = () => {
   const handleAssign = async (teacherId, type, department) => {
     setMsg('');
     try {
-      await api.post('/admin/assign-role', { userId: teacherId, type, department });
+      await api.post('/api/admin/assign-role', { userId: teacherId, type, department });
       setMsg('Role assigned!');
       fetchAll();
     } catch (err) {
@@ -50,7 +50,7 @@ const RoleManagement = () => {
   const handleRemove = async (teacherId, type, department) => {
     setMsg('');
     try {
-      await api.post('/admin/remove-role', { userId: teacherId, type, department });
+      await api.post('/api/admin/remove-role', { userId: teacherId, type, department });
       setMsg('Role removed.');
       fetchAll();
     } catch (err) {

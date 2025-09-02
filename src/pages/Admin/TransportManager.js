@@ -29,8 +29,8 @@ const TransportManager = () => {
     try {
       // Replace with your backend endpoints
       const [summaryRes, busesRes] = await Promise.all([
-        api.get('/transport/summary'),
-        api.get('/transport/buses'),
+        api.get('/api/transport/summary'),
+        api.get('/api/transport/buses'),
       ]);
       setSummary(summaryRes.data || {});
       setBuses(busesRes.data || []);
@@ -50,7 +50,7 @@ const TransportManager = () => {
     setFormError(null);
     setAdding(true);
     try {
-      await api.post('/transport/buses', form);
+      await api.post('/api/transport/buses', form);
       setShowAddModal(false);
       setForm(initialForm);
       fetchAll();
@@ -66,14 +66,14 @@ const TransportManager = () => {
     setSelectedStudent('');
     // Fetch students
     try {
-      const res = await api.get('/users?role=student');
+      const res = await api.get('/api/users?role=student');
       setStudents(res.data.data.users || []);
     } catch {
       setStudents([]);
     }
     // Fetch current occupants
     try {
-      const occRes = await api.get(`/transport/bus/${busId}/students`);
+      const occRes = await api.get(`/api/transport/bus/${busId}/students`);
       setOccupants(occRes.data || []);
     } catch {
       setOccupants([]);
@@ -84,7 +84,7 @@ const TransportManager = () => {
     if (!selectedStudent) return;
     setAssigning(true);
     try {
-      await api.post(`/transport/bus/${assignBusId}/assign`, { student: selectedStudent });
+      await api.post(`/api/transport/bus/${assignBusId}/assign`, { student: selectedStudent });
       openAssignModal(assignBusId); // Refresh occupants
       fetchAll();
     } catch (err) {
@@ -95,7 +95,7 @@ const TransportManager = () => {
   const handleRemoveStudent = async (busId, studentId) => {
     if (!window.confirm('Remove this student from the bus?')) return;
     try {
-      await api.delete(`/transport/bus/${busId}/student/${studentId}`);
+      await api.delete(`/api/transport/bus/${busId}/student/${studentId}`);
       openAssignModal(busId); // Refresh occupants
       fetchAll();
       alert('Student removed');
@@ -107,7 +107,7 @@ const TransportManager = () => {
   const handleDeleteBus = async (busId) => {
     if (!window.confirm('Are you sure you want to delete this bus?')) return;
     try {
-      await api.delete(`/transport/buses/${busId}`);
+      await api.delete(`/api/transport/buses/${busId}`);
       fetchAll();
       alert('Bus deleted');
     } catch (err) {

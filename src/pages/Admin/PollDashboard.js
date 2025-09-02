@@ -21,7 +21,7 @@ function PollDashboard() {
   const fetchPolls = async () => {
     setLoading(true);
     try {
-      const res = await api.get('/poll');
+      const res = await api.get('/api/poll');
       setPolls(res.data);
     } catch {
       setError('Failed to load polls');
@@ -70,7 +70,7 @@ function PollDashboard() {
     setShowResponsesModal(true);
     setLoading(true);
     try {
-      const res = await api.get(`/poll/${poll._id}/responses`);
+      const res = await api.get(`/api/poll/${poll._id}/responses`);
       setResponses(res.data);
     } catch {
       setResponses([]);

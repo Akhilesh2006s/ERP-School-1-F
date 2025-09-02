@@ -28,7 +28,7 @@ function AchievementsDashboard() {
   const fetchAchievements = async () => {
     setLoading(true);
     try {
-      const res = await api.get('/achievement');
+      const res = await api.get('/api/achievement');
       setAchievements(res.data);
     } catch {
       setError('Failed to load achievements');
@@ -53,7 +53,7 @@ function AchievementsDashboard() {
 
   const fetchAwards = async () => {
     try {
-      const res = await api.get('/award');
+      const res = await api.get('/api/award');
       setAwards(res.data);
     } catch {}
   };
@@ -71,7 +71,7 @@ function AchievementsDashboard() {
   const handleDeleteAchievement = async (id) => {
     if (!window.confirm('Delete this achievement?')) return;
     try {
-      await api.delete(`/achievement/${id}`);
+      await api.delete(`/api/achievement/${id}`);
       fetchAchievements();
     } catch {}
   };
@@ -79,7 +79,7 @@ function AchievementsDashboard() {
   const handleDeleteAward = async (id) => {
     if (!window.confirm('Delete this award?')) return;
     try {
-      await api.delete(`/award/${id}`);
+      await api.delete(`/api/award/${id}`);
       fetchAwards();
     } catch {}
   };
