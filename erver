@@ -1,0 +1,13 @@
+[33m7170d42[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Add material type dropdown to Course Materials - include options for Class To-Dos, Homework, Assignments, Study Guides with colored badges
+src/pages/Student/CourseMaterials.js
+src/pages/Teacher/CourseMaterials.js
+[33m4353c02[m Remove Class To-Dos from both student and teacher sidebar navigation
+src/components/common/Sidebar.js
+[33m5bd9bca[m Convert file upload to link input in Class To-Dos - replace file chooser with URL input field for both Teacher and Student views
+src/components/common/BrandingFooter.js
+src/pages/Student/ClassTodos.js
+src/pages/Teacher/ClassTodos.js
+[33m0b4a4cc[m Make Amenity Forge text clickable link with hover effects and external website redirect
+src/components/common/BrandingFooter.js
+[33m8673250[m Add debug styling to BrandingFooter to make it more visible and troubleshoot display issues
+src/components/common/BrandingFooter.js
