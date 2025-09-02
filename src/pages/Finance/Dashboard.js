@@ -28,8 +28,8 @@ const FinanceDashboard = () => {
   useEffect(() => {
     setLoading(true);
     Promise.all([
-      api.get('/teacher/admin'),
-      api.get(`/finance?month=${selectedMonth}&year=${selectedYear}`)
+      api.get('/api/teacher/admin'),
+      api.get(`/api/finance?month=${selectedMonth}&year=${selectedYear}`)
     ]).then(([teacherRes, financeRes]) => {
       setTeachers(teacherRes.data || []);
       const records = (financeRes.data.records || []).map(r => ({
@@ -71,13 +71,13 @@ const FinanceDashboard = () => {
       return;
     }
     try {
-      await api.post('/finance/assign', {
+      await api.post('/api/finance/assign', {
         teacher: modalTeacher,
         amount: Number(modalAmount),
         month: modalMonth,
         year: modalYear
       });
-      const financeRes = await api.get('/finance');
+      const financeRes = await api.get('/api/finance');
       setFinanceRecords(financeRes.data.records || []);
       setShowModal(false);
     } catch (err) {
@@ -88,8 +88,8 @@ const FinanceDashboard = () => {
   const handleTogglePaid = async (recordId, paid) => {
     setStatusLoading(true);
     try {
-      await api.patch(`/finance/${recordId}/set-paid`, { paid });
-      const financeRes = await api.get('/finance');
+      await api.patch(`/api/finance/${recordId}/set-paid`, { paid });
+      const financeRes = await api.get('/api/finance');
       setFinanceRecords(financeRes.data.records || []);
     } catch {}
     setStatusLoading(false);
