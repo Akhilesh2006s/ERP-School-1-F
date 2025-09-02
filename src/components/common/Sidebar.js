@@ -438,7 +438,7 @@ const Sidebar = ({ isOpen, onClose, collapsed, setCollapsed }) => {
                 {/* Module Navigation Grid */}
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold text-white mb-4">Quick Access</h3>
-                  <p className="text-gray-300 mb-6">
+                  <p className="text-gray-800 font-medium mb-6">
                     {user?.role === 'admin' 
                       ? 'Access your school management modules' 
                       : 'Access your teaching tools and resources'
@@ -453,7 +453,7 @@ const Sidebar = ({ isOpen, onClose, collapsed, setCollapsed }) => {
           <div>
             <div className="mb-8">
               <h2 className="text-3xl font-bold text-white mb-2">Module Navigation</h2>
-              <p className="text-gray-300">Click on any module below to access its features</p>
+              <p className="text-gray-800 font-medium">Click on any module below to access its features</p>
             </div>
           </div>
         )}
@@ -484,8 +484,8 @@ const Sidebar = ({ isOpen, onClose, collapsed, setCollapsed }) => {
                   <h3 className="text-lg font-semibold text-white group-hover:text-white">
                     {item.name}
                   </h3>
-                  <p className={`text-sm mt-1 ${
-                    item.color === 'purple' ? 'text-purple-200' : 'text-yellow-200'
+                  <p className={`text-sm mt-1 font-medium ${
+                    item.color === 'purple' ? 'text-purple-800' : 'text-yellow-800'
                   }`}>
                     Click to access
                   </p>
