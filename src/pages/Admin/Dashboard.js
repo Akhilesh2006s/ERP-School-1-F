@@ -437,7 +437,7 @@ const AdminDashboard = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
         <div className="mb-8 bg-white/80 backdrop-blur-sm shadow-xl rounded-2xl border border-white/50">
           <div className="border-b border-white/30 pb-4 px-8 pt-8">
-            <h2 className="text-3xl font-bold text-gray-800 tracking-tight">Dashboard Overview</h2>
+            <h2 className="text-3xl font-bold text-purple-900 tracking-tight">Dashboard Overview</h2>
           </div>
           <div className="pt-6 px-8">
             <div className="animate-fade-in">

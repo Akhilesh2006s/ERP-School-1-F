@@ -139,7 +139,7 @@ const FinanceDashboard = () => {
           {years.map(y => <option key={y} value={y}>{y}</option>)}
         </select>
       </div>
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Finance Management</h2>
+              <h2 className="text-2xl font-bold text-purple-900 mb-6">Finance Management</h2>
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center">

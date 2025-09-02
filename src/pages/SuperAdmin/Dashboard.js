@@ -187,7 +187,7 @@ const SuperAdminDashboard = () => {
                 </div>
               </div>
               <div className="ml-4">
-                <h1 className="text-xl font-semibold text-white">Super Admin Dashboard</h1>
+                <h1 className="text-xl font-semibold text-purple-900">Super Admin Dashboard</h1>
                 <p className="text-sm text-gray-500">Manage all schools and administrators</p>
               </div>
             </div>

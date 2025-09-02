@@ -136,7 +136,7 @@ function AchievementsDashboard() {
       <div className="max-w-7xl mx-auto p-6 relative z-10">
       {/* Top Row: Title only */}
       <div className="flex items-center mb-6">
-        <h1 className="text-3xl font-bold">Achievements & Awards</h1>
+        <h1 className="text-3xl font-bold text-purple-900">Achievements & Awards</h1>
       </div>
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -176,7 +176,7 @@ function AchievementsDashboard() {
         {/* Recent Achievements Card */}
         <div className="bg-white rounded-xl shadow p-4">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold">Recent Achievements</h2>
+            <h2 className="text-xl font-bold text-gray-800">Recent Achievements</h2>
             <button className="bg-purple-600 text-white px-3 py-1 rounded" onClick={() => setShowAchModal(true)}>
               + Add Achievement
             </button>

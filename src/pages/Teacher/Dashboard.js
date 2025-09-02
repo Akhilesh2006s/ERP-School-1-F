@@ -642,7 +642,7 @@ const TeacherDashboard = ({ defaultTab }) => {
 
   const renderNoticesTab = () => (
     <div>
-      <h1 className="text-2xl font-bold mb-4 text-blue-900 flex items-center gap-2"><Bell /> Notices</h1>
+              <h1 className="text-2xl font-bold mb-4 text-purple-900 flex items-center gap-2"><Bell /> Notices</h1>
       <div className="bg-white rounded-xl shadow p-6 border border-blue-100">
         {noticesLoading ? (
           <div className="p-8 text-center">Loading notices...</div>
@@ -720,7 +720,7 @@ const TeacherDashboard = ({ defaultTab }) => {
     const classCards = Array.from(classSectionMap.values());
     return (
       <div>
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2 mb-8"><Users /> Student Management</h1>
+        <h1 className="text-2xl font-bold text-purple-900 flex items-center gap-2 mb-8"><Users /> Student Management</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {classCards.length === 0 ? (
             <div className="col-span-3 text-center text-gray-500">No classes assigned.</div>
@@ -784,7 +784,7 @@ const TeacherDashboard = ({ defaultTab }) => {
     const classCards = Array.from(classMap.values());
     return (
       <div>
-        <h1 className="text-2xl font-bold mb-4 text-blue-900 flex items-center gap-2">Classes Overview</h1>
+        <h1 className="text-2xl font-bold mb-4 text-purple-900 flex items-center gap-2">Classes Overview</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {classCards.length === 0 ? (
             <div className="col-span-4 text-center text-gray-500">No classes assigned.</div>
@@ -862,7 +862,7 @@ const TeacherDashboard = ({ defaultTab }) => {
           <div>
             {/* Remove the inner dashboard header bar, keep only a section heading */}
             <div className="flex items-center justify-between mb-6">
-              <h1 className="text-3xl font-bold flex items-center gap-2 transition-all duration-500 text-blue-900">
+              <h1 className="text-3xl font-bold flex items-center gap-2 transition-all duration-500 text-purple-900">
                 <ClipboardList className="inline-block w-8 h-8 transition-all duration-500 text-blue-700" /> Dashboard Overview
               </h1>
               
@@ -922,7 +922,7 @@ const TeacherDashboard = ({ defaultTab }) => {
         )}
         {activeTab === 'my-classes' && (
           <div>
-            <h1 className="text-2xl font-bold mb-4 text-blue-900 flex items-center gap-2"><BookOpen /> My Classes</h1>
+            <h1 className="text-2xl font-bold mb-4 text-purple-900 flex items-center gap-2"><BookOpen /> My Classes</h1>
             {assignments.length === 0 ? (
               <div className="p-8 text-center text-red-600">No assignments found. Please contact admin to assign you to a class/subject.</div>
             ) : (
@@ -977,7 +977,7 @@ const TeacherDashboard = ({ defaultTab }) => {
         {activeTab === 'attendance' && renderAttendanceTab()}
         {activeTab === 'assignments' && (
           <div>
-            <h1 className="text-2xl font-bold mb-4 text-blue-900 flex items-center gap-2"><FileText /> Assignments & Homework</h1>
+            <h1 className="text-2xl font-bold mb-4 text-purple-900 flex items-center gap-2"><FileText /> Assignments & Homework</h1>
             {/* Create Assignment Form */}
             <form onSubmit={handleCreateAssignment} className="mb-6 flex flex-wrap gap-4 items-end">
               <select value={assignmentClass} onChange={e => setAssignmentClass(e.target.value)} className="input">
@@ -1071,7 +1071,7 @@ const TeacherDashboard = ({ defaultTab }) => {
         )}
         {activeTab === 'marks' && (
           <div>
-            <h1 className="text-2xl font-bold mb-4 text-blue-900 flex items-center gap-2"><GraduationCap /> Marks</h1>
+            <h1 className="text-2xl font-bold mb-4 text-purple-900 flex items-center gap-2"><GraduationCap /> Marks</h1>
             {/* Exam Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
               {exams.map(exam => (
@@ -1148,7 +1148,7 @@ const TeacherDashboard = ({ defaultTab }) => {
         {activeTab === 'notices' && renderNoticesTab()}
         {activeTab === 'documents' && (
           <div>
-            <h1 className="text-2xl font-bold mb-4 text-blue-900 flex items-center gap-2"><Download /> Documents</h1>
+            <h1 className="text-2xl font-bold mb-4 text-purple-900 flex items-center gap-2"><Download /> Documents</h1>
             <div className="bg-white rounded-xl shadow p-6 border border-blue-100">
               <div className="text-gray-700">(Upload and access lesson materials here.)</div>
             </div>
@@ -1156,7 +1156,7 @@ const TeacherDashboard = ({ defaultTab }) => {
         )}
         {activeTab === 'calendar' && (
           <div>
-            <h1 className="text-2xl font-bold mb-4 text-blue-900 flex items-center gap-2"><Clock /> Calendar & Events</h1>
+            <h1 className="text-2xl font-bold mb-4 text-purple-900 flex items-center gap-2"><Clock /> Calendar & Events</h1>
             <div className="bg-white rounded-xl shadow p-6 border border-blue-100">
               <div className="text-gray-700">(View school events, meetings, and reminders here.)</div>
             </div>

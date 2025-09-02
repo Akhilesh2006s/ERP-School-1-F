@@ -33,7 +33,7 @@ const HomeworkDashboard = () => (
     </div>
 
     <div className="p-4 relative z-10 max-w-7xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-gray-800">Homework Dashboard</h1>
+              <h1 className="text-2xl font-bold mb-4 text-purple-900">Homework Dashboard</h1>
       <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/50">
         <p className="text-gray-600">This is a placeholder for the Homework module.</p>
       </div>

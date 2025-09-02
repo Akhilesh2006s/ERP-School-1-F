@@ -908,7 +908,7 @@ const StudentDashboard = () => {
           <div className="w-full flex flex-col items-center">
             {/* Only render overview content here, with a section heading */}
             <div className="w-full mb-6">
-              <h1 className="text-3xl font-bold text-blue-900 flex items-center gap-2">Welcome, Student!</h1>
+              <h1 className="text-3xl font-bold text-purple-900 flex items-center gap-2">Welcome, Student!</h1>
             </div>
             <div className="w-full">
               {renderOverviewTab()}

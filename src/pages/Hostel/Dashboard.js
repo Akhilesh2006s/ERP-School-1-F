@@ -122,7 +122,7 @@ const HostelDashboard = () => {
       </div>
 
       <div className="p-4 max-w-7xl mx-auto relative z-10">
-        <h1 className="text-3xl font-bold mb-2 text-gray-800">Hostel Management</h1>
+        <h1 className="text-3xl font-bold mb-2 text-purple-900">Hostel Management</h1>
         <p className="text-gray-800 font-medium mb-6">Manage hostels, room allocation, and resident information</p>
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
