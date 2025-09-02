@@ -42,6 +42,7 @@ const StudentCourseMaterials = () => {
             <thead>
               <tr className="bg-blue-50">
                 <th className="py-3 px-4 text-left font-semibold text-blue-900">Title</th>
+                <th className="py-3 px-4 text-left font-semibold text-blue-900">Material Type</th>
                 <th className="py-3 px-4 text-left font-semibold text-blue-900">Description</th>
                 <th className="py-3 px-4 text-left font-semibold text-blue-900">Link</th>
                 <th className="py-3 px-4 text-left font-semibold text-blue-900">Uploaded On</th>
@@ -52,6 +53,18 @@ const StudentCourseMaterials = () => {
               {materials.map(mat => (
                 <tr key={mat._id} className="border-b hover:bg-blue-50 transition">
                   <td className="py-2 px-4 font-bold text-blue-900">{mat.title}</td>
+                  <td className="py-2 px-4 text-gray-700">
+                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                      mat.materialType === 'course-material' ? 'bg-blue-100 text-blue-800' :
+                      mat.materialType === 'class-todo' ? 'bg-green-100 text-green-800' :
+                      mat.materialType === 'homework' ? 'bg-yellow-100 text-yellow-800' :
+                      mat.materialType === 'assignment' ? 'bg-purple-100 text-purple-800' :
+                      mat.materialType === 'study-guide' ? 'bg-orange-100 text-orange-800' :
+                      'bg-gray-100 text-gray-800'
+                    }`}>
+                      {mat.materialType ? mat.materialType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Course Material'}
+                    </span>
+                  </td>
                   <td className="py-2 px-4 text-gray-700">{mat.description}</td>
                   <td className="py-2 px-4 text-gray-700">
                     <div className="flex items-center gap-2">

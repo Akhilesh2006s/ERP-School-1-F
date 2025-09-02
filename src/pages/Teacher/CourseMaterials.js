@@ -13,7 +13,8 @@ const CourseMaterials = () => {
     title: '',
     description: '',
     classSection: '',
-    linkUrl: ''
+    linkUrl: '',
+    materialType: 'course-material'
   });
   const [uploading, setUploading] = useState(false);
 
@@ -60,11 +61,12 @@ const CourseMaterials = () => {
       data.append('description', form.description);
       data.append('classId', classId);
       data.append('linkUrl', form.linkUrl);
+      data.append('materialType', form.materialType);
       if (sectionId) data.append('sectionId', sectionId);
       
       await api.post('/api/teacher/materials', data);
       setMsg('Material uploaded!');
-      setForm({ title: '', description: '', classSection: '', linkUrl: '' });
+      setForm({ title: '', description: '', classSection: '', linkUrl: '', materialType: 'course-material' });
       fetchMaterials();
     } catch (err) {
       setMsg(err.response?.data?.message || 'Failed to upload material.');
@@ -133,12 +135,22 @@ const CourseMaterials = () => {
             <input type="text" name="title" value={form.title} onChange={handleFormChange} className="input-dark w-full rounded-lg" required />
           </div>
           <div>
+            <label className="block text-sm font-semibold mb-1 text-white">Material Type</label>
+            <select name="materialType" value={form.materialType} onChange={handleFormChange} className="select-dark w-full rounded-lg" required>
+              <option value="course-material">Course Material</option>
+              <option value="class-todo">Class To-Do</option>
+              <option value="homework">Homework</option>
+              <option value="assignment">Assignment</option>
+              <option value="study-guide">Study Guide</option>
+            </select>
+          </div>
+          <div>
             <label className="block text-sm font-semibold mb-1 text-white">Class/Section</label>
             <select name="classSection" value={form.classSection} onChange={handleFormChange} className="select-dark w-full rounded-lg" required>
               <option value="">Select...</option>
               {assignments.filter(a => a && a.class && a.section).map(a => (
                 <option key={a.class._id + '-' + a.section._id} value={a.class._id + '-' + a.section._id}>
-                  {a.class.name} - {a.section.name}
+                  {a.class.name} - {a.class.number} - {a.section.name}
                 </option>
               ))}
             </select>
@@ -174,6 +186,7 @@ const CourseMaterials = () => {
             <thead>
               <tr className="bg-gray-800">
                 <th className="py-3 px-4 text-left font-semibold text-purple-300">Title</th>
+                <th className="py-3 px-4 text-left font-semibold text-purple-300">Material Type</th>
                 <th className="py-3 px-4 text-left font-semibold text-purple-300">Description</th>
                 <th className="py-3 px-4 text-left font-semibold text-purple-300">Class/Section</th>
                 <th className="py-3 px-4 text-left font-semibold text-purple-300">Link</th>
@@ -185,6 +198,18 @@ const CourseMaterials = () => {
               {safeMaterials.map(mat => (
                 <tr key={mat._id} className="border-b border-gray-700 hover:bg-gray-700/50 transition">
                   <td className="py-2 px-4 font-bold text-white">{mat.title}</td>
+                  <td className="py-2 px-4 text-gray-200">
+                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                      mat.materialType === 'course-material' ? 'bg-blue-100 text-blue-800' :
+                      mat.materialType === 'class-todo' ? 'bg-green-100 text-green-800' :
+                      mat.materialType === 'homework' ? 'bg-yellow-100 text-yellow-800' :
+                      mat.materialType === 'assignment' ? 'bg-purple-100 text-purple-800' :
+                      mat.materialType === 'study-guide' ? 'bg-orange-100 text-orange-800' :
+                      'bg-gray-100 text-gray-800'
+                    }`}>
+                      {mat.materialType ? mat.materialType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'Course Material'}
+                    </span>
+                  </td>
                   <td className="py-2 px-4 text-gray-200">{mat.description}</td>
                   <td className="py-2 px-4 text-gray-200">{mat.classId?.name || '-'}{mat.sectionId?.name ? ` - ${mat.sectionId.name}` : ''}</td>
                   <td className="py-2 px-4 text-gray-200">
