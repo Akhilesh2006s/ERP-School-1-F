@@ -129,7 +129,8 @@ const FinanceDashboard = () => {
       </div>
 
       <div className="py-8 relative z-10 max-w-7xl mx-auto">
-        {/* Month/Year Dropdowns */}
+        <div className="px-4 sm:px-6 lg:px-8">
+          {/* Month/Year Dropdowns */}
         <div className="flex gap-4 mb-6 items-center">
           <label className="font-semibold text-gray-800">Month:</label>
         <select value={selectedMonth} onChange={e => setSelectedMonth(e.target.value)} className="input input-bordered rounded-lg">
@@ -296,6 +297,8 @@ const FinanceDashboard = () => {
           </div>
         </div>
       )}
+        </div>
+      </div>
       
       <BrandingFooter />
     </div>
