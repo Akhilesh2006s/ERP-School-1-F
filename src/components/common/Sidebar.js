@@ -93,7 +93,7 @@ const navItemsByRole = {
     { name: 'Marks', path: '/teacher/marks', icon: <GraduationCap className="w-12 h-12" />, color: 'purple' },
     { name: 'Student Performance', path: '/teacher/student-performance', icon: <BarChart3 className="w-12 h-12" />, color: 'purple' },
     { name: 'Class To-Dos', path: '/teacher/class-todos', icon: <FileText className="w-12 h-12" />, color: 'gold' },
-    { name: 'Communication', path: '/teacher/communication', icon: <Bell className="w-12 h-12" />, color: 'purple' },
+
     { name: 'Course Materials', path: '/teacher/materials', icon: <Folder className="w-12 h-12" />, color: 'purple' },
             { name: 'Lecture Videos', path: '/teacher/youtube-videos', icon: <Youtube className="w-12 h-12" />, color: 'gold' },
   ],
