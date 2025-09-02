@@ -22,6 +22,11 @@ const Marks = () => {
   const [selectedSubject, setSelectedSubject] = useState('');
   const inputRefs = useRef({});
 
+  // Debug: Log when component renders
+  useEffect(() => {
+    console.log('Teacher Marks component rendered with updated styles');
+  }, []);
+
   useEffect(() => {
     api.get('/api/auth/me')
       .then(res => setAssignments(res.data?.data?.user?.assignments || []))
@@ -179,6 +184,13 @@ const Marks = () => {
             <label className="font-semibold mr-2 text-gray-800">Subject:</label>
             <select
               className="px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-800"
+              style={{
+                backgroundColor: 'white',
+                color: '#1f2937',
+                borderColor: '#d1d5db',
+                fontSize: '14px',
+                fontWeight: '500'
+              }}
               value={selectedSubject}
               onChange={e => setSelectedSubject(e.target.value)}
             >
@@ -201,6 +213,13 @@ const Marks = () => {
               <input
                 type="text"
                 className="w-64 px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent placeholder-gray-600 text-gray-800"
+                style={{
+                  backgroundColor: 'white',
+                  color: '#1f2937',
+                  borderColor: '#d1d5db',
+                  fontSize: '14px',
+                  fontWeight: '500'
+                }}
                 placeholder="Search by name or roll no..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
@@ -274,6 +293,13 @@ const Marks = () => {
                                 value={marks[stu._id] || ''}
                                 onChange={e => setMarks({ ...marks, [stu._id]: e.target.value })}
                                 className={`pr-8 px-3 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-gray-800 ${isValidMark(marks[stu._id]) || marks[stu._id] === undefined || marks[stu._id] === '' ? '' : 'border-red-500 bg-red-50'}`}
+                                style={{
+                                  backgroundColor: 'white',
+                                  color: '#1f2937',
+                                  borderColor: '#d1d5db',
+                                  fontSize: '14px',
+                                  fontWeight: '500'
+                                }}
                                 min="0"
                                 max={selectedExam.maxMarks}
                                 placeholder={`Max ${selectedExam.maxMarks}`}

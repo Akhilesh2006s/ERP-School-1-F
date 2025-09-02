@@ -346,6 +346,20 @@
     color: #6b7280;
   }
 
+  /* Force visibility for form elements */
+  input[type="text"]::placeholder,
+  input[type="number"]::placeholder {
+    color: #6b7280 !important;
+    opacity: 1 !important;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select {
+    color: #1f2937 !important;
+    background-color: white !important;
+  }
+
   .label-dark {
     color: #e5e7eb;
     font-weight: 500;
