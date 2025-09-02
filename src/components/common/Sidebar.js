@@ -437,7 +437,7 @@ const Sidebar = ({ isOpen, onClose, collapsed, setCollapsed }) => {
 
                 {/* Module Navigation Grid */}
                 <div className="mb-8">
-                  <h3 className="text-2xl font-bold text-white mb-4">Quick Access</h3>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4">Quick Access</h3>
                   <p className="text-gray-800 font-medium mb-6">
                     {user?.role === 'admin' 
                       ? 'Access your school management modules' 
@@ -452,7 +452,7 @@ const Sidebar = ({ isOpen, onClose, collapsed, setCollapsed }) => {
           // Module Navigation
           <div>
             <div className="mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">Module Navigation</h2>
+              <h2 className="text-3xl font-bold text-gray-800 mb-2">Module Navigation</h2>
               <p className="text-gray-800 font-medium">Click on any module below to access its features</p>
             </div>
           </div>
