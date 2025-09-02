@@ -141,7 +141,7 @@ const ClassManager = ({ user }) => {
       // Call backend endpoint to promote classes (to be implemented)
       const currentYear = selectedYear || (classes[0]?.academicYear);
       const nextYear = currentYear ? `${parseInt(currentYear.split('-')[0]) + 1}-${(parseInt(currentYear.split('-')[0]) + 2).toString().slice(-2)}` : '';
-      await api.post('/class/promote', { currentAcademicYear: currentYear, nextAcademicYear: nextYear });
+      await api.post('/api/class/promote', { currentAcademicYear: currentYear, nextAcademicYear: nextYear });
       toast.success('Classes and students promoted!');
       setShowPromoteConfirm(false);
       fetchClassesAndSections();
