@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../utils/api';
 import { CheckCircle, XCircle, DollarSign, Users, PlusCircle, Edit2 } from 'lucide-react';
 import dayjs from 'dayjs';
+import BrandingFooter from '../../components/common/BrandingFooter';
 
 const FinanceDashboard = () => {
   const [teachers, setTeachers] = useState([]);
@@ -295,6 +296,8 @@ const FinanceDashboard = () => {
           </div>
         </div>
       )}
+      
+      <BrandingFooter />
     </div>
   </div>
   );

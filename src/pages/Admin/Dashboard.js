@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { useAuth } from '../../contexts/AuthContext';
 import { Users, GraduationCap, BookOpen, Calendar, DollarSign, Bell, Plus, UserPlus, Eye, Edit, Trash2, School, ClipboardList } from 'lucide-react';
+import BrandingFooter from '../../components/common/BrandingFooter';
 import toast from 'react-hot-toast';
 import ClassManager from './ClassManager';
 import HostelDashboard from '../Hostel/Dashboard';
@@ -448,6 +449,8 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
+      
+      <BrandingFooter />
       </main>
       {/* Footer */}
       <footer className="w-full py-6 bg-white/80 backdrop-blur-sm border-t border-purple-300/30 text-center text-xs text-gray-600 font-medium tracking-wide">

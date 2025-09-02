@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { DateTime } from 'luxon';
 import { useLocation, useNavigate } from 'react-router-dom';
+import BrandingFooter from '../../components/common/BrandingFooter';
 
 // Mock data for demonstration
 const mockClasses = [
@@ -1162,6 +1163,8 @@ const TeacherDashboard = ({ defaultTab }) => {
             </div>
           </div>
         )}
+        
+        <BrandingFooter />
       </main>
     </div>
   );

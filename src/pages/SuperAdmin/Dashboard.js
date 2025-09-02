@@ -17,6 +17,7 @@ import {
   Building,
   UserPlus
 } from 'lucide-react';
+import BrandingFooter from '../../components/common/BrandingFooter';
 
 import api from '../../utils/api';
 
@@ -511,6 +512,8 @@ const SuperAdminDashboard = () => {
           <div className="text-xs text-gray-500 mt-2">Share these credentials with the new admin.</div>
         </div>
       )}
+      
+      <BrandingFooter />
     </div>
   );
 };

@@ -21,6 +21,7 @@ import {
   Star,
   Medal
 } from 'lucide-react';
+import BrandingFooter from '../../components/common/BrandingFooter';
 
 // Mock data for demonstration
 const mockAttendance = {
@@ -915,6 +916,8 @@ const StudentDashboard = () => {
             </div>
           </div>
         </div>
+        
+        <BrandingFooter />
       </div>
     </div>
   );
