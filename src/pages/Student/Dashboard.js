@@ -916,9 +916,9 @@ const StudentDashboard = () => {
             </div>
           </div>
         </div>
-        
-        <BrandingFooter />
       </div>
+      
+      <BrandingFooter />
     </div>
   );
 };

@@ -1163,9 +1163,9 @@ const TeacherDashboard = ({ defaultTab }) => {
             </div>
           </div>
         )}
-        
-        <BrandingFooter />
       </main>
+      
+      <BrandingFooter />
     </div>
   );
 };

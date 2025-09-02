@@ -299,7 +299,6 @@ const FinanceDashboard = () => {
       
       <BrandingFooter />
     </div>
-  </div>
   );
 };
 

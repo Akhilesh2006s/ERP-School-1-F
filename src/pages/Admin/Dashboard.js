@@ -449,9 +449,10 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
+      </main>
       
       <BrandingFooter />
-      </main>
+      
       {/* Footer */}
       <footer className="w-full py-6 bg-white/80 backdrop-blur-sm border-t border-purple-300/30 text-center text-xs text-gray-600 font-medium tracking-wide">
         &copy; {new Date().getFullYear()} {selectedSchool?.name || 'Your School'} OhYes!. All rights reserved.
