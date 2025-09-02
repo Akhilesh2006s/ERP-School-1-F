@@ -164,7 +164,7 @@ const AdminDashboard = () => {
             <h2 className="text-2xl font-bold text-gray-800 mb-1">
                   Welcome to {selectedSchool.name}
                 </h2>
-            <p className="text-gray-600">
+            <p className="text-gray-800 font-medium">
                   School Code: {selectedSchool.code} • Location: {selectedSchool.address?.city}, {selectedSchool.address?.state}
                 </p>
           </div>
@@ -178,7 +178,7 @@ const AdminDashboard = () => {
             <GraduationCap className="w-8 h-8 text-purple-600" />
               </div>
           <div className="ml-6">
-            <p className="text-base font-medium text-gray-600">Total Students</p>
+            <p className="text-base font-medium text-gray-800">Total Students</p>
             <p className="text-3xl font-bold text-gray-800">{students.length}</p>
             <p className="text-sm text-green-600">Present: {students.filter(s => s.status === 'active').length}</p>
           </div>
@@ -188,9 +188,9 @@ const AdminDashboard = () => {
             <Users className="w-8 h-8 text-blue-600" />
               </div>
           <div className="ml-6">
-            <p className="text-base font-medium text-gray-600">Total Teachers</p>
+            <p className="text-base font-medium text-gray-800">Total Teachers</p>
             <p className="text-3xl font-bold text-gray-800">{teachers.length}</p>
-                <p className="text-sm text-gray-600">Active Staff</p>
+                <p className="text-sm text-gray-800">Active Staff</p>
           </div>
         </div>
         <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 flex items-center shadow-lg border border-white/50">
@@ -198,9 +198,9 @@ const AdminDashboard = () => {
             <BookOpen className="w-8 h-8 text-yellow-600" />
               </div>
           <div className="ml-6">
-            <p className="text-base font-medium text-gray-600">Total Classes</p>
+            <p className="text-base font-medium text-gray-800">Total Classes</p>
             <p className="text-3xl font-bold text-gray-800">{classes.length}</p>
-                <p className="text-sm text-gray-600">Active Classes</p>
+                <p className="text-sm text-gray-800">Active Classes</p>
           </div>
         </div>
         <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 flex items-center shadow-lg border border-white/50">
@@ -208,7 +208,7 @@ const AdminDashboard = () => {
             <DollarSign className="w-8 h-8 text-green-600" />
               </div>
           <div className="ml-6">
-            <p className="text-base font-medium text-gray-600">Pending Fees</p>
+            <p className="text-base font-medium text-gray-800">Pending Fees</p>
             <p className="text-3xl font-bold text-gray-800">₹{students.filter(s => s.feeStatus === 'pending').reduce((sum, s) => sum + s.feeAmount, 0).toLocaleString()}</p>
             <p className="text-sm text-green-600">Requires attention</p>
           </div>
@@ -218,9 +218,9 @@ const AdminDashboard = () => {
             <Bell className="w-8 h-8 text-indigo-600" />
               </div>
           <div className="ml-6">
-            <p className="text-base font-medium text-gray-600">Active Notices</p>
+            <p className="text-base font-medium text-gray-800">Active Notices</p>
             <p className="text-3xl font-bold text-gray-800">{classes.filter(c => c.activeNotices > 0).length}</p>
-                <p className="text-sm text-gray-600">Published</p>
+                <p className="text-sm text-gray-800">Published</p>
           </div>
         </div>
         <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 flex items-center shadow-lg border border-white/50">
@@ -228,7 +228,7 @@ const AdminDashboard = () => {
             <Calendar className="w-8 h-8 text-orange-600" />
           </div>
           <div className="ml-6">
-            <p className="text-base font-medium text-gray-600">Attendance Rate</p>
+            <p className="text-base font-medium text-gray-800">Attendance Rate</p>
             <p className="text-3xl font-bold text-gray-800">
               {students.length > 0 ? Math.round((students.filter(s => s.status === 'active').length / students.length) * 100) : 0}%
             </p>

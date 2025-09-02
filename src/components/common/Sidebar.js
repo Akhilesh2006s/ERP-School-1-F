@@ -320,7 +320,7 @@ const Sidebar = ({ isOpen, onClose, collapsed, setCollapsed }) => {
               <h2 className="text-3xl font-bold text-gray-800 mb-2">
                 {user?.role === 'admin' ? 'Admin Dashboard' : 'Teacher Dashboard'}
               </h2>
-              <p className="text-gray-600">
+              <p className="text-gray-800 font-medium">
                 {user?.role === 'admin' 
                   ? 'Welcome to your school management overview' 
                   : 'Welcome to your teaching dashboard'
@@ -344,9 +344,9 @@ const Sidebar = ({ isOpen, onClose, collapsed, setCollapsed }) => {
                           <Users className="w-8 h-8 text-purple-600" />
                         </div>
                         <div className="ml-6">
-                          <p className="text-base font-medium text-gray-600">Total Students</p>
+                          <p className="text-base font-medium text-gray-800">Total Students</p>
                           <p className="text-3xl font-bold text-gray-800">{students.length}</p>
-                          <p className="text-sm text-gray-600">Enrolled Students</p>
+                          <p className="text-sm text-gray-800">Enrolled Students</p>
                         </div>
                       </div>
                       
@@ -355,9 +355,9 @@ const Sidebar = ({ isOpen, onClose, collapsed, setCollapsed }) => {
                           <User className="w-8 h-8 text-yellow-600" />
                         </div>
                         <div className="ml-6">
-                          <p className="text-base font-medium text-gray-600">Total Teachers</p>
+                          <p className="text-base font-medium text-gray-800">Total Teachers</p>
                           <p className="text-3xl font-bold text-gray-800">{teachers.length}</p>
-                          <p className="text-sm text-gray-600">Active Teachers</p>
+                          <p className="text-sm text-gray-800">Active Teachers</p>
                         </div>
                       </div>
                       
@@ -366,9 +366,9 @@ const Sidebar = ({ isOpen, onClose, collapsed, setCollapsed }) => {
                           <BookOpen className="w-8 h-8 text-blue-600" />
                         </div>
                         <div className="ml-6">
-                          <p className="text-base font-medium text-gray-600">Total Classes</p>
+                          <p className="text-base font-medium text-gray-800">Total Classes</p>
                           <p className="text-3xl font-bold text-gray-800">{classes.length}</p>
-                          <p className="text-sm text-gray-600">Active Classes</p>
+                          <p className="text-sm text-gray-800">Active Classes</p>
                         </div>
                       </div>
                       
@@ -377,11 +377,11 @@ const Sidebar = ({ isOpen, onClose, collapsed, setCollapsed }) => {
                           <DollarSign className="w-8 h-8 text-green-600" />
                         </div>
                         <div className="ml-6">
-                          <p className="text-base font-medium text-gray-600">Pending Fees</p>
+                          <p className="text-base font-medium text-gray-800">Pending Fees</p>
                           <p className="text-3xl font-bold text-gray-800">
                             ₹{students.filter(s => s.feeStatus === 'pending').reduce((sum, s) => sum + (s.feeAmount || 0), 0).toLocaleString()}
                           </p>
-                          <p className="text-sm text-gray-600">Requires attention</p>
+                          <p className="text-sm text-gray-800">Requires attention</p>
                         </div>
                       </div>
                     </>

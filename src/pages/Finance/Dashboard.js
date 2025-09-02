@@ -145,22 +145,22 @@ const FinanceDashboard = () => {
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
           <Users className="w-7 h-7 text-blue-700 mb-2" />
           <div className="text-2xl font-bold text-blue-700">{totalTeachers}</div>
-          <div className="text-gray-600">Total Teachers</div>
+          <div className="text-gray-800 font-medium">Total Teachers</div>
         </div>
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
           <DollarSign className="w-7 h-7 text-green-600 mb-2" />
           <div className="text-2xl font-bold text-green-600">₹{totalSalaryAssigned.toLocaleString()}</div>
-          <div className="text-gray-600">Total Salary Assigned</div>
+          <div className="text-gray-800 font-medium">Total Salary Assigned</div>
         </div>
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
           <CheckCircle className="w-7 h-7 text-purple-700 mb-2" />
           <div className="text-2xl font-bold text-purple-700">₹{totalSalaryPaid.toLocaleString()}</div>
-          <div className="text-gray-600">Total Salary Paid</div>
+          <div className="text-gray-800 font-medium">Total Salary Paid</div>
         </div>
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
           <XCircle className="w-7 h-7 text-red-600 mb-2" />
           <div className="text-2xl font-bold text-red-600">₹{totalSalaryDue.toLocaleString()}</div>
-          <div className="text-gray-600">Total Salary Due</div>
+          <div className="text-gray-800 font-medium">Total Salary Due</div>
         </div>
       </div>
       {/* Teachers Table */}

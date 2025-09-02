@@ -143,22 +143,22 @@ function AchievementsDashboard() {
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
           <Trophy className="w-7 h-7 text-purple-500 mb-2" />
           <div className="text-2xl font-bold text-purple-700">{totalAchievements}</div>
-          <div className="text-gray-600">Total Achievements</div>
+          <div className="text-gray-800 font-medium">Total Achievements</div>
         </div>
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
           <Calendar className="w-7 h-7 text-green-500 mb-2" />
           <div className="text-2xl font-bold text-green-700">{achievementsThisMonth}</div>
-          <div className="text-gray-600">This Month</div>
+          <div className="text-gray-800 font-medium">This Month</div>
         </div>
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
           <Star className="w-7 h-7 text-indigo-500 mb-2" />
           <div className="text-2xl font-bold text-indigo-700">{nationalLevelCount}</div>
-          <div className="text-gray-600">National Level</div>
+          <div className="text-gray-800 font-medium">National Level</div>
         </div>
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
           <Medal className="w-7 h-7 text-yellow-500 mb-2" />
           <div className="text-2xl font-bold text-yellow-700">{studentsAwarded}</div>
-          <div className="text-gray-600">Students Awarded</div>
+          <div className="text-gray-800 font-medium">Students Awarded</div>
         </div>
       </div>
       {/* Search Bar */}

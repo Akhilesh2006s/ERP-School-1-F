@@ -366,7 +366,7 @@ const FeeDashboard = () => {
 
       <div className="py-8 relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold mb-2 text-gray-800">Fee Management</h1>
-        <p className="text-gray-600 mb-6">Manage student fees, payments, and financial records</p>
+        <p className="text-gray-800 font-medium mb-6">Manage student fees, payments, and financial records</p>
               {/* Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 flex flex-col items-center hover:scale-105 transition shadow-lg border border-white/50">

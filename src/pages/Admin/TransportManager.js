@@ -157,23 +157,23 @@ const TransportManager = () => {
 
       <div className="p-4 max-w-7xl mx-auto relative z-10">
       <h1 className="text-3xl font-bold mb-2">Transport Management</h1>
-      <p className="text-gray-600 mb-6">Manage buses, drivers, and seat allocation</p>
+              <p className="text-gray-800 font-medium mb-6">Manage buses, drivers, and seat allocation</p>
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center hover:scale-105 transition">
           <Bus className="w-7 h-7 text-blue-700 mb-2" />
           <div className="text-2xl font-bold text-blue-700">{summary.totalBuses}</div>
-          <div className="text-gray-600">Total Buses</div>
+          <div className="text-gray-800 font-medium">Total Buses</div>
         </div>
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center hover:scale-105 transition">
           <Users className="w-7 h-7 text-green-600 mb-2" />
           <div className="text-2xl font-bold text-green-600">{summary.totalCapacity}</div>
-          <div className="text-gray-600">Total Capacity</div>
+          <div className="text-gray-800 font-medium">Total Capacity</div>
         </div>
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center hover:scale-105 transition">
           <Users className="w-7 h-7 text-pink-600 mb-2" />
           <div className="text-2xl font-bold text-pink-600">{summary.occupiedSeats}</div>
-          <div className="text-gray-600">Occupied Seats</div>
+          <div className="text-gray-800 font-medium">Occupied Seats</div>
         </div>
       </div>
       {/* Search Bar and Add Bus Button */}
