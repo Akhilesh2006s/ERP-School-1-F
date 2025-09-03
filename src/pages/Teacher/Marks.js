@@ -22,10 +22,7 @@ const Marks = () => {
   const [selectedSubject, setSelectedSubject] = useState('');
   const inputRefs = useRef({});
 
-  // Debug: Log when component renders
-  useEffect(() => {
-    console.log('Teacher Marks component rendered with updated styles');
-  }, []);
+
 
   useEffect(() => {
     api.get('/api/auth/me')

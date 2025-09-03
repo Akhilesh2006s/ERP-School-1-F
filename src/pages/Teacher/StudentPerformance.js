@@ -75,9 +75,14 @@ const StudentPerformance = () => {
         <div className="flex flex-col md:flex-row gap-4 mb-8">
           <div className="flex-1 flex flex-col md:flex-row gap-4">
             <div className="flex-1">
-              <label className="label-dark block text-sm font-semibold mb-2">Select Student</label>
+              <label className="block text-sm font-semibold mb-2" style={{ color: '#000000' }}>Select Student</label>
               <select 
-                className="select-dark w-full px-4 py-3 rounded-lg"
+                className="w-full px-4 py-3 rounded-lg"
+                style={{
+                  backgroundColor: '#ffffff',
+                  border: '2px solid #000000',
+                  color: '#000000'
+                }}
                 value={selectedStudent}
                 onChange={e => setSelectedStudent(e.target.value)}
               >

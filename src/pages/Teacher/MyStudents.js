@@ -17,20 +17,13 @@ const MyStudents = () => {
   const fetchAll = async () => {
     setLoading(true);
     try {
-      console.log('Fetching teacher data...');
-      console.log('User:', user);
-      
       // Try to get all sections for the school first
       if (user?.school?._id) {
-        console.log('School ID found:', user.school._id);
-        
         try {
           const sectionsRes = await api.get(`/api/section/all?schoolId=${user.school._id}`);
-          console.log('Sections response:', sectionsRes.data);
           
           if (sectionsRes.data?.data?.classSections) {
             const classSections = sectionsRes.data.data.classSections;
-            console.log('Class sections:', classSections);
             
             // Create sections with class numbers
             const sectionsWithClassNumbers = classSections.map(cs => ({
@@ -40,7 +33,6 @@ const MyStudents = () => {
               subjects: []
             }));
             
-            console.log('Sections with class numbers:', sectionsWithClassNumbers);
             setSections(sectionsWithClassNumbers);
             setSummary({ total: 0, active: 0, inactive: 0, newThisMonth: 0 });
             setLoading(false);
@@ -54,28 +46,8 @@ const MyStudents = () => {
       // Fallback: Get teacher's class-section assignments
       const res = await api.get('/api/teacher/classes');
       const classes = res.data?.data?.classes || [];
-      console.log('DEBUG: classes from API', classes);
       
-      // Debug each class
-      classes.forEach((cls, index) => {
-        console.log(`Class ${index}:`, {
-          id: cls._id,
-          number: cls.number,
-          name: cls.name,
-          sectionsCount: cls.sections?.length || 0
-        });
-        
-        if (cls.sections) {
-          cls.sections.forEach((section, secIndex) => {
-            console.log(`  Section ${secIndex}:`, {
-              id: section._id,
-              name: section.name,
-              studentsCount: section.students?.length || 0,
-              subjectsCount: section.subjects?.length || 0
-            });
-          });
-        }
-      });
+      console.log('Classes data received:', classes);
       
       // Group by section
       const sectionMap = new Map();
@@ -117,7 +89,6 @@ const MyStudents = () => {
       }
       
       const sectionsArray = Array.from(sectionMap.values());
-      console.log('Final sections array:', sectionsArray);
       
       setSections(sectionsArray);
       setSummary({ total, active: 0, inactive: 0, newThisMonth: 0 });
@@ -136,54 +107,52 @@ const MyStudents = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden" style={{backgroundImage: 'url(/BG.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat'}}>
-      {/* Subtle overlay for better readability */}
-      <div className="absolute inset-0 bg-white/10"></div>
       
       <div className="p-0 sm:p-4 max-w-7xl mx-auto relative z-10">
         <div className="py-8">
-        <h1 className="text-2xl font-bold text-white flex items-center gap-2 mb-8">
-          <Users className="w-6 h-6 text-purple-400" /> Student Management
+        <h1 className="text-2xl font-bold text-black flex items-center gap-2 mb-8">
+          <Users className="w-6 h-6 text-black" /> Student Management
         </h1>
         
-        {/* Temporary debug section */}
-        <div className="bg-yellow-900/50 border border-yellow-500/30 text-yellow-200 px-4 py-3 rounded mb-4">
-          <strong>Debug Info:</strong>
-          <div>User School ID: {user?.school?._id || 'Not found'}</div>
-          <div>Sections count: {sections.length}</div>
-          <div>Filtered sections: {filteredSections.length}</div>
-          {sections.length > 0 && (
-            <div>
-              <strong>First section data:</strong>
-              <pre className="text-xs mt-2 bg-gray-800 p-2 rounded text-gray-200">
-                {JSON.stringify(sections[0], null, 2)}
-              </pre>
-            </div>
-          )}
+        {/* Search Input */}
+        <div className="mb-6">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Search sections..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 bg-white border-2 border-gray-400 rounded-lg text-black placeholder-gray-500 focus:outline-none focus:border-gray-600 focus:ring-2 focus:ring-gray-400/30"
+            />
+          </div>
         </div>
         
         {loading ? (
           <div className="flex justify-center items-center h-32">
-            <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-600 h-16 w-16"></div>
+            <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-400 h-16 w-16"></div>
           </div>
         ) : filteredSections.length === 0 ? (
-          <div className="text-gray-300 text-center py-12">No sections found.</div>
+          <div className="text-black text-center py-12 text-lg font-medium">No sections found.</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredSections.map((section, idx) => (
-              <div key={idx} className="card-purple rounded-2xl shadow-lg p-8 flex flex-col gap-4 border border-purple-500/30 hover:shadow-2xl transition">
-                <div className="font-bold text-xl text-white flex items-center gap-2 mb-2">
-                  <BookOpen className="w-6 h-6 text-purple-300" /> 
-                  {section.classNumber ? `Class ${section.classNumber} - Section ${section.sectionName}` : `Section ${section.sectionName}`}
+              <div key={idx} className="bg-white border-2 border-gray-300 rounded-2xl shadow-lg p-8 flex flex-col gap-4 hover:shadow-2xl transition hover:border-gray-400">
+                <div className="font-bold text-xl text-black flex items-center gap-2 mb-2">
+                  <BookOpen className="w-6 h-6 text-black" /> 
+                  {section.classNumber ? `Class ${section.classNumber} - Section ${section.sectionName}` : 
+                   section.className ? `Class ${section.className} - Section ${section.sectionName}` :
+                   `Section ${section.sectionName}`}
                 </div>
-                <div className="flex items-center text-gray-200 mb-1 text-lg"><span className="mr-2">👥</span> {section.students.length} Students</div>
-                <div className="flex items-center text-gray-200 mb-1 text-lg">
+                <div className="flex items-center text-gray-700 mb-1 text-lg font-semibold"><span className="mr-2">👥</span> {section.students.length} Students</div>
+                <div className="flex items-center text-gray-700 mb-1 text-lg font-semibold">
                   <span className="mr-2">📚</span>
                   {section.subjects.length === 0 ? (
-                    <span className="text-gray-400">No subjects assigned</span>
+                    <span className="text-gray-600 font-medium">No subjects assigned</span>
                   ) : (
                     <div className="flex flex-wrap gap-2">
                       {section.subjects.map((subj, i) => (
-                        <span key={i} className="bg-purple-900/50 text-purple-200 px-3 py-1 rounded-full text-sm font-semibold border border-purple-500/30">
+                        <span key={i} className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full text-sm font-semibold border border-gray-400 shadow-sm">
                           {typeof subj === 'string' ? subj : subj.name || subj.subject?.name || 'Unnamed Subject'}
                         </span>
                       ))}

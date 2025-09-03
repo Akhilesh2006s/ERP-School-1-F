@@ -14,7 +14,7 @@ const getAcademicYearOptions = () => {
     return { value: `${y1}-${y2}`, label: `${y1}-${y2}` };
   });
 };
-const initialClassForm = { number: '', academicYear: '2025-26' };
+const initialClassForm = { number: null, academicYear: '2025-26' };
 const initialSectionForm = { name: '' };
 const initialSubjectForm = { name: '', teacherId: '' };
 const initialStudentForm = { firstName: '', lastName: '', email: '', password: '' };
@@ -73,7 +73,6 @@ const ClassManager = ({ user }) => {
             _id: sec._id,
             name: sec.name
           }));
-          console.log('Mapped sections for class', cls._id, sectionsMap[cls._id]);
         } catch {
           sectionsMap[cls._id] = [];
         }
@@ -399,7 +398,11 @@ const ClassManager = ({ user }) => {
       </div>
       {/* Class Grid */}
       <div className="flex flex-wrap gap-8 pb-4">
-        {(() => {
+        {classes.length === 0 ? (
+          <div className="text-center text-gray-500 py-8 w-full">
+            No classes found. Create your first class using the "Add Class" button above.
+          </div>
+        ) : (() => {
           const filtered = classes.filter(cls => !selectedYear || cls.academicYear === selectedYear);
           const cards = filtered.map(cls => (
             <div
@@ -438,7 +441,9 @@ const ClassManager = ({ user }) => {
               </div>
               {/* Class Card Content */}
               <div className="flex-1 flex flex-col justify-center items-center mt-2">
-                <div className="text-5xl font-extrabold text-blue-800 group-hover:text-yellow-400 transition">Class {cls.number}</div>
+                <div className="text-5xl font-extrabold text-blue-800 group-hover:text-yellow-400 transition">
+                  Class {cls.number || cls.name || 'Unknown'}
+                </div>
                 <div className="text-lg text-gray-500 mt-2">Academic Year: <span className="font-semibold text-blue-700">{cls.academicYear || '2025-26'}</span></div>
               </div>
             </div>
@@ -453,6 +458,7 @@ const ClassManager = ({ user }) => {
           }
           return cards;
         })()}
+        )}
       </div>
       {/* Subject List */}
       {selectedSection && (
@@ -504,7 +510,7 @@ const ClassManager = ({ user }) => {
                 <input
                   type="number"
                   value={classForm.number}
-                  onChange={e => setClassForm({ ...classForm, number: e.target.value })}
+                  onChange={e => setClassForm({ ...classForm, number: parseInt(e.target.value) || '' })}
                   placeholder="e.g. 1, 2, 3"
                   required
                   className="input input-bordered w-full rounded-lg"

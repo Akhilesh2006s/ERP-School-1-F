@@ -31,6 +31,7 @@ import BrandingFooter from '../../components/common/BrandingFooter';
 const mockClasses = [
   {
     id: 1,
+    number: 10,
     name: 'Class 10',
     section: 'A',
     subject: 'Mathematics',
@@ -39,6 +40,7 @@ const mockClasses = [
   },
   {
     id: 2,
+    number: 9,
     name: 'Class 9',
     section: 'B',
     subject: 'Mathematics',
@@ -203,7 +205,7 @@ const TeacherDashboard = ({ defaultTab }) => {
         setError('Failed to load assignments.');
         // Use mock data instead of failing completely
         setAssignments(mockClasses.map(cls => ({
-          class: { _id: cls.id, number: cls.name },
+          class: { _id: cls.id, number: cls.number, name: cls.name },
           section: { _id: cls.id, name: cls.section },
           subject: { _id: cls.id, name: cls.subject },
           students: mockStudents
@@ -934,7 +936,7 @@ const TeacherDashboard = ({ defaultTab }) => {
                     <div key={a.class._id + a.section._id + a.subject._id} className={`card cursor-pointer ${selectedAssignment && selectedAssignment.class._id === a.class._id && selectedAssignment.section._id === a.section._id && selectedAssignment.subject._id === a.subject._id ? 'border-blue-500' : ''}`}
                       onClick={() => setSelectedAssignment(a)}>
                       <div className="card-body">
-                        <div className="font-bold text-blue-800">{a.class.name}</div>
+                        <div className="font-bold text-blue-800">Class {a.class.number || a.class.name}</div>
                         <div className="text-gray-700">Section: {a.section.name}</div>
                         <div className="text-gray-700">Subject: {a.subject.name}</div>
                       </div>
@@ -946,7 +948,7 @@ const TeacherDashboard = ({ defaultTab }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {assignments.map((a, index) => (
                 <div key={a._id || `assignment-${index}`} className="bg-white rounded-xl shadow p-6 border border-blue-100">
-                  <div className="text-xl font-semibold text-blue-800 mb-2">{a.class.name} {a.section.name && `- ${a.section.name}`}</div>
+                  <div className="text-xl font-semibold text-blue-800 mb-2">Class {a.class.number || a.class.name} {a.section.name && `- Section ${a.section.name}`}</div>
                   <div className="mb-2">
                     <span className="font-semibold">Subjects you teach:</span>
                     <ul className="list-disc ml-6">
@@ -984,7 +986,7 @@ const TeacherDashboard = ({ defaultTab }) => {
               <select value={assignmentClass} onChange={e => setAssignmentClass(e.target.value)} className="input">
                 <option value="">Select Class</option>
                 {assignments.map(a => (
-                  <option key={a.class._id} value={a.class._id}>{a.class.name} {a.section.name && `- ${a.section.name}`}</option>
+                  <option key={a.class._id} value={a.class._id}>Class {a.class.number || a.class.name} {a.section.name && `- Section ${a.section.name}`}</option>
                 ))}
               </select>
               <select value={assignmentSubject} onChange={e => setAssignmentSubject(e.target.value)} className="input">
@@ -1014,7 +1016,7 @@ const TeacherDashboard = ({ defaultTab }) => {
                 {assignments.map(assn => (
                   <tr key={assn._id}>
                     <td className="py-2">{assn.title}</td>
-                    <td className="py-2">{assn.class.name}</td>
+                    <td className="py-2">Class {assn.class.number || assn.class.name}</td>
                     <td className="py-2">{assn.subject?.name || ''}</td>
                     <td className="py-2">{assn.dueDate?.slice(0, 10)}</td>
                     <td className="py-2">{assn.submissions?.length || 0}</td>
