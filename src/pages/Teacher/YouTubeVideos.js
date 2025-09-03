@@ -546,28 +546,7 @@ const YouTubeVideos = () => {
                     {video.sectionId?.name ? ` - Section ${video.sectionId.name}` : ''}
                   </span>
                 </div>
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => openVideo(video)}
-                    className="flex-1 py-2 px-3 rounded-lg font-semibold bg-red-600 text-white hover:bg-red-700 transition flex items-center justify-center gap-1"
-                  >
-                    <Play className="w-4 h-4" /> Watch
-                  </button>
-                  <button
-                    onClick={() => {
-                      console.log('=== BOTTOM DELETE BUTTON CLICKED ===');
-                      console.log('Video ID:', video._id);
-                      console.log('Video object:', video);
-                      if (window.confirm(`Are you sure you want to delete "${video.title}"?`)) {
-                        handleDelete(video._id);
-                      }
-                    }}
-                    className="py-2 px-3 rounded-lg font-semibold bg-red-600 text-white hover:bg-red-700 transition border border-red-500 shadow-sm hover:bg-red-700"
-                    title="Delete video"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
+
               </div>
             </div>
           ))}
