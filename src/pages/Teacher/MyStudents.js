@@ -8,6 +8,13 @@ const MyStudents = () => {
   const [summary, setSummary] = useState({ total: 0, active: 0, inactive: 0, newThisMonth: 0 });
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
+  const [showAddClassModal, setShowAddClassModal] = useState(false);
+  const [newClassForm, setNewClassForm] = useState({
+    number: '',
+    name: '',
+    section: 'A'
+  });
+  const [submitting, setSubmitting] = useState(false);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -105,6 +112,54 @@ const MyStudents = () => {
     s.sectionName?.toLowerCase().includes(search.toLowerCase())
   );
 
+  const handleAddClass = async (e) => {
+    e.preventDefault();
+    if (!newClassForm.number && !newClassForm.name) {
+      alert('Please enter either a class number or name');
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const classData = {
+        number: newClassForm.number || undefined,
+        name: newClassForm.name || `Class ${newClassForm.number}`,
+        schoolId: user?.school?._id
+      };
+
+      console.log('Creating new class:', classData);
+      
+      // Create the class
+      const classRes = await api.post('/api/class', classData);
+      console.log('Class created:', classRes.data);
+
+      // Create a section for this class
+      const sectionData = {
+        name: newClassForm.section,
+        classId: classRes.data.data.class._id,
+        schoolId: user?.school?._id
+      };
+
+      console.log('Creating section:', sectionData);
+      const sectionRes = await api.post('/api/section', sectionData);
+      console.log('Section created:', sectionRes.data);
+
+      // Refresh the data
+      await fetchAll();
+      
+      // Reset form and close modal
+      setNewClassForm({ number: '', name: '', section: 'A' });
+      setShowAddClassModal(false);
+      
+      alert('Class and section created successfully!');
+    } catch (error) {
+      console.error('Error creating class:', error);
+      alert(error.response?.data?.message || 'Failed to create class. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen relative overflow-hidden" style={{backgroundImage: 'url(/BG.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat'}}>
       
@@ -113,6 +168,21 @@ const MyStudents = () => {
         <h1 className="text-2xl font-bold text-black flex items-center gap-2 mb-8">
           <Users className="w-6 h-6 text-black" /> Student Management
         </h1>
+        
+        {/* Add Class Button */}
+        <div className="mb-6 flex justify-between items-center">
+          <button
+            onClick={() => setShowAddClassModal(true)}
+            className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors shadow-lg"
+          >
+            <Plus className="w-5 h-5" />
+            Add New Class
+          </button>
+          
+          <div className="text-gray-600 text-sm">
+            Total Classes: {sections.length}
+          </div>
+        </div>
         
         {/* Search Input */}
         <div className="mb-6">
@@ -161,6 +231,70 @@ const MyStudents = () => {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+        
+        {/* Add Class Modal */}
+        {showAddClassModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Add New Class</h2>
+              
+              <form onSubmit={handleAddClass} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Class Number</label>
+                  <input
+                    type="number"
+                    value={newClassForm.number}
+                    onChange={(e) => setNewClassForm({...newClassForm, number: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
+                    placeholder="e.g., 4, 5, 6"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Class Name (Optional)</label>
+                  <input
+                    type="text"
+                    value={newClassForm.name}
+                    onChange={(e) => setNewClassForm({...newClassForm, name: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
+                    placeholder="e.g., Primary, Secondary"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Section</label>
+                  <select
+                    value={newClassForm.section}
+                    onChange={(e) => setNewClassForm({...newClassForm, section: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
+                  >
+                    <option value="A">Section A</option>
+                    <option value="B">Section B</option>
+                    <option value="C">Section C</option>
+                    <option value="D">Section D</option>
+                  </select>
+                </div>
+                
+                <div className="flex gap-3 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowAddClassModal(false)}
+                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
+                  >
+                    {submitting ? 'Creating...' : 'Create Class'}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         )}
         </div>
