@@ -70,12 +70,25 @@ const YouTubeVideos = () => {
           subject: video.subject,
           topic: video.topic
         });
+        
+        // Detailed class debugging
+        if (video.classId) {
+          console.log(`Video ${index} classId details:`, {
+            _id: video.classId._id,
+            name: video.classId.name,
+            number: video.classId.number,
+            fullClassId: video.classId
+          });
+        } else {
+          console.log(`Video ${index} has no classId`);
+        }
       });
       
       // Check if the video we're trying to delete exists
       if (videosData.length > 0) {
         console.log('First video ID:', videosData[0]._id);
         console.log('First video full object:', videosData[0]);
+        console.log('First video classId:', videosData[0].classId);
       }
       
       setVideos(videosData);
@@ -542,7 +555,15 @@ const YouTubeVideos = () => {
                 </div>
                 <div className="flex items-center justify-between text-sm text-gray-400 mb-3">
                   <span className="font-medium">
-                    {video.classId?.number ? `Class ${video.classId.number}` : video.classId?.name ? `Class ${video.classId.name}` : 'Class Not Assigned'}
+                    {video.classId ? (
+                      video.classId.number ? 
+                        `Class ${video.classId.number}` : 
+                        video.classId.name ? 
+                          `Class ${video.classId.name}` : 
+                          'Class (No Name)'
+                    ) : (
+                      'Class Not Assigned'
+                    )}
                     {video.sectionId?.name ? ` - Section ${video.sectionId.name}` : ''}
                   </span>
                 </div>
