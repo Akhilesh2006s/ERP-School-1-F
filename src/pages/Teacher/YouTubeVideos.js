@@ -9,6 +9,10 @@ const YouTubeVideos = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [msg, setMsg] = useState('');
+  
+  // Debug user context
+  console.log('YouTubeVideos component - User context:', { user, token });
+  
   const [form, setForm] = useState({
     title: '',
     description: '',
@@ -22,6 +26,12 @@ const YouTubeVideos = () => {
   const [showPlayer, setShowPlayer] = useState(false);
 
   useEffect(() => {
+    // Test API connection first
+    console.log('Testing API connection...');
+    console.log('API base URL:', process.env.NODE_ENV === 'production' 
+      ? 'https://erp-school-1-production.up.railway.app'
+      : 'http://localhost:5000');
+    
     fetchAssignments();
     fetchVideos();
   }, []);
@@ -38,9 +48,35 @@ const YouTubeVideos = () => {
   const fetchVideos = async () => {
     setLoading(true);
     try {
+      console.log('Fetching videos...');
+      console.log('Current token from localStorage:', localStorage.getItem('token'));
+      console.log('User context token:', token);
+      
       const res = await api.get('/api/teacher/youtube-videos');
-      setVideos(res.data.data.videos || []);
-    } catch {
+      console.log('Videos API response:', res.data);
+      console.log('Videos array:', res.data.data?.videos);
+      
+      const videosData = res.data.data?.videos || [];
+      console.log('Processed videos data:', videosData);
+      
+      // Log each video's structure
+      videosData.forEach((video, index) => {
+        console.log(`Video ${index}:`, {
+          id: video._id,
+          title: video.title,
+          classId: video.classId,
+          sectionId: video.sectionId,
+          subject: video.subject,
+          topic: video.topic
+        });
+      });
+      
+      setVideos(videosData);
+    } catch (error) {
+      console.error('Error fetching videos:', error);
+      console.error('Error response:', error.response);
+      console.error('Error status:', error.response?.status);
+      console.error('Error data:', error.response?.data);
       setVideos([]);
     }
     setLoading(false);
