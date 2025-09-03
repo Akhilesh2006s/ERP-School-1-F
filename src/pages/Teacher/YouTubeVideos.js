@@ -58,6 +58,7 @@ const YouTubeVideos = () => {
       
       const videosData = res.data.data?.videos || [];
       console.log('Processed videos data:', videosData);
+      console.log('Number of videos found:', videosData.length);
       
       // Log each video's structure
       videosData.forEach((video, index) => {
@@ -70,6 +71,12 @@ const YouTubeVideos = () => {
           topic: video.topic
         });
       });
+      
+      // Check if the video we're trying to delete exists
+      if (videosData.length > 0) {
+        console.log('First video ID:', videosData[0]._id);
+        console.log('First video full object:', videosData[0]);
+      }
       
       setVideos(videosData);
     } catch (error) {
@@ -114,12 +121,36 @@ const YouTubeVideos = () => {
   };
 
   const handleDelete = async id => {
+    console.log('=== DELETE FUNCTION CALLED ===');
     console.log('Attempting to delete video with ID:', id);
-    if (!window.confirm('Are you sure you want to delete this video?')) return;
+    console.log('Current videos in state:', videos);
+    
+    // Verify the video exists in our local state
+    const videoToDelete = videos.find(v => v._id === id);
+    console.log('Video to delete exists in state:', videoToDelete);
+    
+    if (!videoToDelete) {
+      setMsg('Error: Video not found in local state. Please refresh the page.');
+      console.error('Video not found in local state. Available videos:', videos);
+      return;
+    }
+    
+    if (!window.confirm(`Are you sure you want to delete "${videoToDelete.title}"?`)) return;
     
     try {
       setLoading(true);
       console.log('Sending delete request to:', `/api/teacher/youtube-videos/${id}`);
+      
+      // First, let's verify the video exists on the server
+      try {
+        const verifyRes = await api.get(`/api/teacher/youtube-videos`);
+        const serverVideos = verifyRes.data.data?.videos || [];
+        const videoExistsOnServer = serverVideos.find(v => v._id === id);
+        console.log('Video exists on server:', !!videoExistsOnServer);
+        console.log('Server videos count:', serverVideos.length);
+      } catch (verifyErr) {
+        console.log('Could not verify video on server:', verifyErr);
+      }
       
       const response = await api.delete(`/api/teacher/youtube-videos/${id}`);
       console.log('Delete response:', response);
@@ -130,9 +161,12 @@ const YouTubeVideos = () => {
       console.error('Delete error details:', err);
       console.error('Error response:', err.response);
       console.error('Error message:', err.message);
+      console.error('Error status:', err.response?.status);
+      console.error('Error data:', err.response?.data);
       
       if (err.response?.status === 404) {
-        setMsg('Video not found or already deleted.');
+        setMsg('Video not found or already deleted. This might be a database sync issue.');
+        console.log('404 Error - Video might not exist in database. Current videos:', videos);
       } else if (err.response?.status === 403) {
         setMsg('You do not have permission to delete this video.');
       } else if (err.response?.status === 500) {
