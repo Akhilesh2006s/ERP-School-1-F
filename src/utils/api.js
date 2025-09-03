@@ -2,7 +2,9 @@ import axios from 'axios';
 
 // Create axios instance with base configuration
 const api = axios.create({
-  baseURL: 'https://erp-school-1-production.up.railway.app',
+  baseURL: process.env.NODE_ENV === 'production' 
+    ? 'https://erp-school-1-production.up.railway.app'
+    : 'http://localhost:5000',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

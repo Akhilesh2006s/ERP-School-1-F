@@ -78,12 +78,34 @@ const YouTubeVideos = () => {
   };
 
   const handleDelete = async id => {
-    if (!window.confirm('Delete this video?')) return;
+    console.log('Attempting to delete video with ID:', id);
+    if (!window.confirm('Are you sure you want to delete this video?')) return;
+    
     try {
-      await api.delete(`/api/teacher/youtube-videos/${id}`);
+      setLoading(true);
+      console.log('Sending delete request to:', `/api/teacher/youtube-videos/${id}`);
+      
+      const response = await api.delete(`/api/teacher/youtube-videos/${id}`);
+      console.log('Delete response:', response);
+      
+      setMsg('Video deleted successfully!');
       fetchVideos();
     } catch (err) {
-      alert(err.response?.data?.message || 'Failed to delete video.');
+      console.error('Delete error details:', err);
+      console.error('Error response:', err.response);
+      console.error('Error message:', err.message);
+      
+      if (err.response?.status === 404) {
+        setMsg('Video not found or already deleted.');
+      } else if (err.response?.status === 403) {
+        setMsg('You do not have permission to delete this video.');
+      } else if (err.response?.status === 500) {
+        setMsg('Server error. Please try again later.');
+      } else {
+        setMsg(err.response?.data?.message || `Failed to delete video: ${err.message}`);
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -380,6 +402,17 @@ const YouTubeVideos = () => {
         <BookOpen className="w-5 h-5 text-purple-400" /> Uploaded Videos
       </h2>
       
+      {/* Message display for operations */}
+      {msg && (
+        <div className={`mb-4 p-3 rounded-lg text-center font-medium ${
+          msg.includes('successfully') ? 'bg-green-900/50 text-green-300 border border-green-500/30' : 
+          msg.includes('Failed') ? 'bg-red-900/50 text-red-300 border border-red-500/30' :
+          'bg-blue-900/50 text-blue-300 border border-blue-500/30'
+        }`}>
+          {msg}
+        </div>
+      )}
+      
       {loading ? (
                     <div className="text-center py-8 text-gray-700">Loading...</div>
       ) : safeVideos.length === 0 ? (
@@ -417,9 +450,12 @@ const YouTubeVideos = () => {
                     <span className="px-2 py-1 bg-green-900/50 text-green-200 text-xs rounded-full border border-green-500/30">{video.topic}</span>
                   )}
                 </div>
-                                 <div className="flex items-center justify-between text-sm text-gray-400 mb-3">
-                   <span>{video.classId?.name}{video.sectionId?.name ? ` - ${video.sectionId.name}` : ''}</span>
-                 </div>
+                <div className="flex items-center justify-between text-sm text-gray-400 mb-3">
+                  <span className="font-medium">
+                    {video.classId?.number ? `Class ${video.classId.number}` : video.classId?.name ? `Class ${video.classId.name}` : 'Class Not Assigned'}
+                    {video.sectionId?.name ? ` - Section ${video.sectionId.name}` : ''}
+                  </span>
+                </div>
                 <div className="flex gap-2">
                                      <button
                      onClick={() => openVideo(video)}
@@ -428,8 +464,12 @@ const YouTubeVideos = () => {
                      <Play className="w-4 h-4" /> Watch
                    </button>
                   <button
-                    onClick={() => handleDelete(video._id)}
-                    className="py-2 px-3 rounded-lg font-semibold bg-red-900/50 text-red-300 hover:bg-red-800/50 transition border border-red-500/30"
+                    onClick={() => {
+                      console.log('Delete button clicked for video:', video._id);
+                      handleDelete(video._id);
+                    }}
+                    className="py-2 px-3 rounded-lg font-semibold bg-red-600 text-white hover:bg-red-700 transition border border-red-500 shadow-sm"
+                    title="Delete video"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
