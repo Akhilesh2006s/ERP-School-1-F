@@ -472,18 +472,7 @@ const YouTubeVideos = () => {
         <BookOpen className="w-5 h-5 text-purple-400" /> Uploaded Videos
       </h2>
       
-      {/* Test button for debugging */}
-      <div className="mb-4">
-        <button
-          onClick={() => {
-            console.log('=== TEST BUTTON CLICKED ===');
-            alert('Test button works!');
-          }}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg"
-        >
-          Test Button (Click to verify JavaScript is working)
-        </button>
-      </div>
+
       
       {/* Message display for operations */}
       {msg && (
@@ -513,12 +502,30 @@ const YouTubeVideos = () => {
                     e.target.src = 'https://via.placeholder.com/400x225/cccccc/666666?text=Video+Thumbnail';
                   }}
                 />
-                                 <button
-                   onClick={() => openVideo(video)}
-                   className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 hover:bg-opacity-70 transition"
-                 >
-                   <Play className="w-16 h-16 text-white" />
-                 </button>
+                
+                {/* Play button overlay */}
+                <button
+                  onClick={() => openVideo(video)}
+                  className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 hover:bg-opacity-70 transition"
+                >
+                  <Play className="w-16 h-16 text-white" />
+                </button>
+                
+                {/* Delete button in top-right corner */}
+                <button
+                  onClick={() => {
+                    console.log('=== TOP DELETE BUTTON CLICKED ===');
+                    console.log('Video ID:', video._id);
+                    console.log('Video object:', video);
+                    if (window.confirm(`Are you sure you want to delete "${video.title}"?`)) {
+                      handleDelete(video._id);
+                    }
+                  }}
+                  className="absolute top-2 right-2 p-2 bg-red-600 hover:bg-red-700 text-white rounded-full shadow-lg transition-all duration-200 hover:scale-110 z-10"
+                  title="Delete video"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
               <div className="p-4">
                 <h3 className="font-bold text-lg text-white mb-2 line-clamp-2">{video.title}</h3>
@@ -539,22 +546,23 @@ const YouTubeVideos = () => {
                     {video.sectionId?.name ? ` - Section ${video.sectionId.name}` : ''}
                   </span>
                 </div>
-                <div className="flex gap-2">
-                                     <button
-                     onClick={() => openVideo(video)}
-                     className="flex-1 py-2 px-3 rounded-lg font-semibold bg-red-600 text-white hover:bg-red-700 transition flex items-center justify-center gap-1"
-                   >
-                     <Play className="w-4 h-4" /> Watch
-                   </button>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => openVideo(video)}
+                    className="flex-1 py-2 px-3 rounded-lg font-semibold bg-red-600 text-white hover:bg-red-700 transition flex items-center justify-center gap-1"
+                  >
+                    <Play className="w-4 h-4" /> Watch
+                  </button>
                   <button
                     onClick={() => {
-                      console.log('=== DELETE BUTTON CLICKED ===');
+                      console.log('=== BOTTOM DELETE BUTTON CLICKED ===');
                       console.log('Video ID:', video._id);
                       console.log('Video object:', video);
-                      alert(`Delete button clicked for video: ${video._id}`);
-                      handleDelete(video._id);
+                      if (window.confirm(`Are you sure you want to delete "${video.title}"?`)) {
+                        handleDelete(video._id);
+                      }
                     }}
-                    className="py-2 px-3 rounded-lg font-semibold bg-red-600 text-white hover:bg-red-700 transition border border-red-500 shadow-sm"
+                    className="py-2 px-3 rounded-lg font-semibold bg-red-600 text-white hover:bg-red-700 transition border border-red-500 shadow-sm hover:bg-red-700"
                     title="Delete video"
                   >
                     <Trash2 className="w-4 h-4" />
