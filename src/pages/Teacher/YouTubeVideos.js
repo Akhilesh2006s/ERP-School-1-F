@@ -438,6 +438,19 @@ const YouTubeVideos = () => {
         <BookOpen className="w-5 h-5 text-purple-400" /> Uploaded Videos
       </h2>
       
+      {/* Test button for debugging */}
+      <div className="mb-4">
+        <button
+          onClick={() => {
+            console.log('=== TEST BUTTON CLICKED ===');
+            alert('Test button works!');
+          }}
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+        >
+          Test Button (Click to verify JavaScript is working)
+        </button>
+      </div>
+      
       {/* Message display for operations */}
       {msg && (
         <div className={`mb-4 p-3 rounded-lg text-center font-medium ${
@@ -501,7 +514,10 @@ const YouTubeVideos = () => {
                    </button>
                   <button
                     onClick={() => {
-                      console.log('Delete button clicked for video:', video._id);
+                      console.log('=== DELETE BUTTON CLICKED ===');
+                      console.log('Video ID:', video._id);
+                      console.log('Video object:', video);
+                      alert(`Delete button clicked for video: ${video._id}`);
                       handleDelete(video._id);
                     }}
                     className="py-2 px-3 rounded-lg font-semibold bg-red-600 text-white hover:bg-red-700 transition border border-red-500 shadow-sm"
