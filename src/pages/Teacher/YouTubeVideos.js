@@ -38,9 +38,26 @@ const YouTubeVideos = () => {
 
   const fetchAssignments = async () => {
     try {
+      console.log('Fetching assignments...');
       const res = await api.get('/api/auth/me');
-      setAssignments(res.data?.data?.user?.assignments || []);
-    } catch {
+      console.log('Auth me response:', res.data);
+      
+      const assignmentsData = res.data?.data?.user?.assignments || [];
+      console.log('Assignments data:', assignmentsData);
+      
+      // Log each assignment structure
+      assignmentsData.forEach((assignment, index) => {
+        console.log(`Assignment ${index}:`, {
+          _id: assignment._id,
+          class: assignment.class,
+          section: assignment.section,
+          subject: assignment.subject
+        });
+      });
+      
+      setAssignments(assignmentsData);
+    } catch (error) {
+      console.error('Error fetching assignments:', error);
       setAssignments([]);
     }
   };
@@ -112,7 +129,14 @@ const YouTubeVideos = () => {
     setSubmitting(true);
     setMsg('');
     try {
-      const [classId, sectionId] = form.classSection.split('-');
+      console.log('Form submission - classSection:', form.classSection);
+      
+      const parts = form.classSection.split('-');
+      const classId = parts[0];
+      const sectionId = parts.length > 1 ? parts[1] : null;
+      
+      console.log('Parsed classId:', classId, 'sectionId:', sectionId);
+      
       const data = {
         title: form.title,
         description: form.description,
@@ -121,13 +145,19 @@ const YouTubeVideos = () => {
         subject: form.subject,
         topic: form.topic
       };
-      if (sectionId) data.sectionId = sectionId;
+      
+      if (sectionId && sectionId.trim()) {
+        data.sectionId = sectionId;
+      }
+      
+      console.log('Submitting video data:', data);
       
       await api.post('/api/teacher/youtube-videos', data);
       setMsg('Video added successfully!');
       setForm({ title: '', description: '', youtubeUrl: '', classSection: '', subject: '', topic: '' });
       fetchVideos();
     } catch (err) {
+      console.error('Video submission error:', err);
       setMsg(err.response?.data?.message || 'Failed to add video.');
     }
     setSubmitting(false);
@@ -416,9 +446,9 @@ const YouTubeVideos = () => {
               required
             >
               <option value="">Select...</option>
-              {assignments.filter(a => a && a.class && a.section).map(a => (
-                <option key={a.class._id + '-' + a.section._id} value={a.class._id + '-' + a.section._id}>
-                  {a.class.name} - {a.section.name}
+              {assignments.filter(a => a && a.class).map(a => (
+                <option key={a.class._id + (a.section ? '-' + a.section._id : '')} value={a.class._id + (a.section ? '-' + a.section._id : '')}>
+                  {a.class.name || a.class.number || 'Class'} {a.section ? `- ${a.section.name}` : ''}
                 </option>
               ))}
             </select>
